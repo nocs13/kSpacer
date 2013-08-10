@@ -1,0 +1,11 @@
+all:
+	make -C ../../android/ clean && make -C ../../android/
+	~/Install/android-ndk-r8e/ndk-build -B
+	ant clean && ant debug
+	~/Install/android-sdk-linux/platform-tools/adb uninstall com.example.Test
+	~/Install/android-sdk-linux/platform-tools/adb install bin/Test-debug.apk 
+	
+clean:
+	make -C ../../android/ clean
+	ant clean 
+	rm -rf libs obj
