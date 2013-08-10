@@ -54,12 +54,12 @@ kGui::kGui(kgmGameBase* game)
   kgmGuiList* lst = m_guiLevels = new kgmGuiList(gui, w / 2, 10, w / 2 - 2, h - 100);
   lst->m_itemHeight = 40;
   lst->setSid("levels");
-  lst->addItem("map000.kgm");
-  lst->addItem("map001.kgm");
-  lst->addItem("map002.kgm");
-  lst->addItem("map003.kgm");
-  lst->addItem("map004.kgm");
-  lst->addItem("map005.kgm");
+//  lst->addItem("map000.kgm");
+//  lst->addItem("map001.kgm");
+//  lst->addItem("map002.kgm");
+//  lst->addItem("map003.kgm");
+//  lst->addItem("map004.kgm");
+//  lst->addItem("map005.kgm");
   gui->show();
 
   game->guiAdd(m_guiMain);
@@ -148,4 +148,20 @@ void kGui::viewAgain()
 
   if(g_ms_camera)
     m_game->m_msAbs = false;
+}
+
+void kGui::updateMaps(char *maps[], u32 cnt)
+{
+  if(!m_guiLevels)
+    return;
+
+  m_guiLevels->clear();
+
+  for(u32 i = 0; i < cnt; i++)
+  {
+    if(maps[2 * i] == null)
+      return;
+
+    m_guiLevels->addItem(maps[2 * i]);
+  }
 }

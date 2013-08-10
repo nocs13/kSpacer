@@ -20,6 +20,7 @@ public:
     void onAction(kgmEvent*, int);
 
     void viewAgain();
+    void updateMaps(char* maps[], u32 cnt);
 };
 
 #endif // KGUI_H

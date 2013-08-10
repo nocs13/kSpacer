@@ -186,8 +186,14 @@ public:
       m_logic = new ASp_Logic(this);
     }
 
+    data.sig  = 0xffff;
+    data.cmap = 1;
+    data.maps = 1;
+
     readData();
     saveData();
+
+    gui->updateMaps(maps, data.maps);
   }
 
   ~kGame()
