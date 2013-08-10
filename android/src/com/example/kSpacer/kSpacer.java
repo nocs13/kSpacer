@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.example.Test;
+package com.example.kSpacer;
 
 import android.app.Activity;
 import android.view.KeyEvent;
@@ -28,21 +28,21 @@ import android.content.res.Configuration;
 import android.util.Log;
 
 
-public class Test extends Activity
+public class kSpacer extends Activity
 {
-    public static Test m_test = null;
-    private static String TAG = "Test";
+    public static kSpacer m_test = null;
+    private static String TAG = "kSpacer";
 
     GL2JNIView mView;
     //SurfaceView mView;
 
     public static void kgmAppFinish()
     {
-        System.out.println("Test Finishing");
+        System.out.println("kSpacer Finishing");
 
         if(m_test != null)
         {
-            TestLib.quit();
+            kSpacerLib.quit();
             m_test.finish();
         }
     }

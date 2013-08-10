@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.Test;
+package com.example.kSpacer;
 /*
  * Copyright (C) 2008 The Android Open Source Project
  *
@@ -370,30 +370,31 @@ class GL2JNIView extends GLSurfaceView {
 
     private static class Renderer implements GLSurfaceView.Renderer {
         public void onDrawFrame(GL10 gl) {
-            TestLib.idle();
-            
             if(GL2JNIView.isEvt)
             {
             	switch(GL2JNIView.evtId)
             	{
             	case GL2JNIView.EVT_KEYUP:
-            		TestLib.onKeyboard(1, GL2JNIView.evtKey);
+            		kSpacerLib.onKeyboard(1, GL2JNIView.evtKey);
             		break;
             	case GL2JNIView.EVT_KEYDOWN:
-            		TestLib.onKeyboard(0, GL2JNIView.evtKey);
+            		kSpacerLib.onKeyboard(0, GL2JNIView.evtKey);
             		break;
             	case GL2JNIView.EVT_TOUCH:
-            		TestLib.onTouch(GL2JNIView.evtKey, GL2JNIView.evtX, GL2JNIView.evtY);
+            		kSpacerLib.onTouch(GL2JNIView.evtKey, GL2JNIView.evtX, GL2JNIView.evtY);
             		break;
             	}
-            	
             	GL2JNIView.isEvt = false;
+            }
+            else
+            {
+              kSpacerLib.idle();
             }
         }
 
         public void onSurfaceChanged(GL10 gl, int width, int height) {
         	assMan = GL2JNIView.ctx.getAssets();
-            TestLib.init(width, height, assMan, GL2JNIView.srf);
+            kSpacerLib.init(width, height, assMan, GL2JNIView.srf);
         }
 
         public void onSurfaceCreated(GL10 gl, EGLConfig config) {

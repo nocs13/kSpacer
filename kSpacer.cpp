@@ -42,15 +42,31 @@ KGMOBJECT_IMPLEMENT(ASp_Spaceship, kgmActor);
 KGMOBJECT_IMPLEMENT(ASp_SpaceshipA, ASp_Spaceship);
 
 bool g_ms_camera = false;
+s8   g_map_current = 0;
+s8   g_maps_count  = 5;
+s8   g_maps_unlock = 1;
 
-const char* maps[] =
+const char* g_maps[] =
 {
-  "map test0", "map000.map",
-  "map test1", "map001.map",
-  "map test2", "map002.map",
-  "map test3", "map003.map",
-  "map test4", "map004.map",
+  "map test0", "map000.kgm",
+  "map test1", "map001.kgm",
+  "map test2", "map002.kgm",
+  "map test3", "map003.kgm",
+  "map test4", "map004.kgm",
 };
+
+kgmString kgame_get_map_by_id(s32 i)
+{
+  if(i > 4)
+    return "";
+
+  return g_maps[2 * i + 1];
+}
+
+void kgame_set_current_map(s8 i)
+{
+  g_map_current = i;
+}
 
 class kGame;
 
@@ -99,6 +115,12 @@ public:
           {
               ASp_Result* res = new ASp_Result(game, 3000, 1, "Success");
               game->gAppend(res);
+
+              if(g_map_current == g_maps_unlock && g_maps_unlock < g_maps_count)
+              {
+                g_maps_unlock ++;
+                game->gCommand("gui_update");
+              }
           }
         }
         else if(src->isType(ASpacer::Class))
@@ -163,7 +185,7 @@ class kGame: public kgmGameBase{
   struct GameData
   {
     u16 sig;
-    u8  maps;
+    u8  umaps;
     u8  cmap;
   };
 
@@ -188,12 +210,13 @@ public:
 
     data.sig  = 0xffff;
     data.cmap = 1;
-    data.maps = 1;
+    data.umaps = 1;
 
     readData();
     saveData();
 
-    gui->updateMaps(maps, data.maps);
+    g_maps_unlock = data.umaps;
+    gui->updateMaps(g_maps, data.umaps);
   }
 
   ~kGame()
@@ -265,6 +288,12 @@ public:
     {
       m_state = kgmIGame::State_Stop;
       gui->viewAgain();
+    }
+    else if(s == "gui_update")
+    {
+      gui->updateMaps(g_maps, g_maps_unlock);
+      data.umaps = g_maps_unlock;
+      saveData();
     }
   }
 

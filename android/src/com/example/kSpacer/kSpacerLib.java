@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 
-package com.example.Test;
+package com.example.kSpacer;
 
 // Wrapper for native library
 
-public class TestLib {
+public class kSpacerLib {
 
      static {
          try{
-           System.loadLibrary("Test");
+           System.loadLibrary("kSpacer");
          }catch(UnsatisfiedLinkError use){
-           System.out.println("WARNING: Could not load libTest.so " + use.getMessage());
+           System.out.println("WARNING: Could not load libkSpacer.so " + use.getMessage());
          }
      }
 

@@ -16,14 +16,14 @@ LOCAL_PATH := $(call my-dir)
 
 include $(CLEAR_VARS)
 	LOCAL_MODULE    := kgmEngine 
-	LOCAL_SRC_FILES := ../../../android/libkgmEngine.a
+	LOCAL_SRC_FILES := ../../../kgmEngine/android/libkgmEngine.a
 include $(PREBUILT_STATIC_LIBRARY)
 
 
 include $(CLEAR_VARS)
-	LOCAL_MODULE    := Test
-	LOCAL_SRC_FILES := ../../kTest.cpp ../../kGui.cpp 
-	LOCAL_C_INCLUDES := ../../../
+	LOCAL_MODULE    := kSpacer
+	LOCAL_SRC_FILES := ../../kSpacer.cpp ../../kGui.cpp 
+	LOCAL_C_INCLUDES := ../../../ ../../kgmEngine
 	LOCAL_STATIC_LIBRARIES := kgmEngine
 	#LOCAL_ALLOW_UNDEFINED_SYMBOLS := true
 	LOCAL_LDLIBS    := -llog -ldl -lm -lz -lstdc++ -landroid #-lGLESv2 -lGLESv1_CM

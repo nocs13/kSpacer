@@ -3,6 +3,10 @@
 #include "kgmBase/kgmLog.h"
 #include "kgmGame/kgmGameApp.h"
 
+extern kgmString  kgame_get_map_by_id(s32 i);
+extern void       kgame_set_current_map(s8 i);
+
+
 kGui::kGui(kgmGameBase* game)
 {
   m_guiMain = null;
@@ -113,7 +117,7 @@ void kGui::onAction(kgmEvent* e, int a)
     int i = lst->getSel();
 
     kgmString map = lst->getItem(i);
-    int res = m_game->gLoad(map);
+    int res = m_game->gLoad(kgame_get_map_by_id(i)); //map
 
     if(res == kgmIGame::State_Play)
     {
@@ -121,6 +125,8 @@ void kGui::onAction(kgmEvent* e, int a)
 
       if(g_ms_camera)
         m_game->m_msAbs = true;
+
+      kgame_set_current_map(i + 1);
     }
   }
   else if(sid == "gameExit")
