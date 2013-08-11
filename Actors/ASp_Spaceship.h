@@ -14,7 +14,7 @@ public:
   {
     game = g;
     explode = false;
-    m_health = 10;
+    m_health = 1;
 
     m_body->m_gravity = false;
     m_body->m_bound.min = vec3(-3, -3, -3);

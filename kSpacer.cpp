@@ -41,6 +41,7 @@ KGMOBJECT_IMPLEMENT(ASp_SpacerSpawner, kgmGameObject);
 KGMOBJECT_IMPLEMENT(ASp_Spaceship, kgmActor);
 KGMOBJECT_IMPLEMENT(ASp_SpaceshipA, ASp_Spaceship);
 
+kgmString g_loc_dir;
 bool g_ms_camera = false;
 s8   g_map_current = 0;
 s8   g_maps_count  = 5;
@@ -291,9 +292,11 @@ public:
     }
     else if(s == "gui_update")
     {
+      kgm_log() << "update gui";
       gui->updateMaps(g_maps, g_maps_unlock);
       data.umaps = g_maps_unlock;
       saveData();
+      kgm_log() << "updated gui";
     }
   }
 
@@ -348,6 +351,7 @@ private:
     kgmString path;
 
 #ifdef ANDROID
+    path = g_loc_dir + "/cdata";
 #else
     kgmSystem::getHomeDirectory(path);
 
@@ -374,6 +378,7 @@ private:
     kgmString path;
 
 #ifdef ANDROID
+    path = g_loc_dir + "/cdata";
 #else
     kgmSystem::getHomeDirectory(path);
 
@@ -480,6 +485,19 @@ JNIEXPORT void  JNICALL Java_com_example_kSpacer_kSpacerLib_onTouch(JNIEnv * env
 JNIEXPORT void JNICALL Java_com_example_kSpacer_kSpacerLib_init(JNIEnv* env, jobject obj,  jint width, jint height, jobject am,
                                                           jobject surface)
 {
+  /*jclass cls = env->GetObjectClass(obj);
+  jmethodID getFilesDir = env->GetMethodID(cls, "getFilesDir", "()Ljava/io/File;");
+  jobject dirobj = env->CallObjectMethod(obj,getFilesDir);
+  jclass dir = env->GetObjectClass(dirobj);
+  jmethodID getStoragePath = env->GetMethodID(dir, "getAbsolutePath", "()Ljava/lang/String;");
+  jstring path=(jstring)env->CallObjectMethod(dirobj, getStoragePath);
+  const char *pathstr=env->GetStringUTFChars(path, 0);
+  g_loc_dir = pathstr;
+  env->ReleaseStringUTFChars(path, pathstr);
+
+  kgm_log() << "path: " << g_loc_dir.data();*/
+  g_loc_dir = "/data/data/com.example.kSpacer";
+
   if(kgmGameApp::gameApplication()->game())
   {
     kgmGameApp::gameApplication()->game()->getWindow()->setRect(0, 0, width, height);
