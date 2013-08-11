@@ -4,11 +4,13 @@
   <Position value='0.20134544372558594 -10.446582794189453 2.377677992626559e-05'/>
   <Rotation value='0.0 -0.0 0.0'/>
   <State value='None'/>
+  <Target value='Player'/>
  </kgmActor>
  <kgmActor name='Spaceship.0' object='KSpaceshipA' parent='None' player='off'>
   <Position value='-14.685836791992188 23.362930297851562 -1.0481335266376846e-05'/>
   <Rotation value='0.0 -0.0 0.0'/>
   <State value='None'/>
+  <Target value='Player'/>
  </kgmActor>
  <kgmActor name='Spacer.002' object='KSpacerA' parent='None' player='off'>
   <Position value='3.7911529541015625 22.503013610839844 -6.850956197013147e-06'/>

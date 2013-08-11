@@ -16,7 +16,7 @@ else
 	DEFS = -DWIN32 -DDEBUG -DTEST -DGPUSHADERS
     FLGS = -g -O0 -mwindows
     LIBS = -lpthread -lopengl32 -luser32 -lkernel32 -lgdi32 -lglu32
-	RM = del
+	RM = rm -f
 endif
 
 all:
@@ -24,7 +24,7 @@ all:
 	$(CC) -o kSpacer *.o ../kgmEngine/libkgmEngine.a $(DEFS) $(FLGS) $(DIRS) $(LIBS)
 
 clean:	
-	$(RM) -f kSpacer *.o
+	$(RM) kSpacer *.o
 	
 run: 
 	./kSpacer

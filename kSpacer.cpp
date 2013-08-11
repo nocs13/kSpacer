@@ -217,7 +217,7 @@ public:
     saveData();
 
     g_maps_unlock = data.umaps;
-    gui->updateMaps(g_maps, data.umaps);
+    gui->updateMaps((char**)g_maps, (u32)data.umaps);
   }
 
   ~kGame()
@@ -293,7 +293,7 @@ public:
     else if(s == "gui_update")
     {
       kgm_log() << "update gui";
-      gui->updateMaps(g_maps, g_maps_unlock);
+      gui->updateMaps((char**)g_maps, (u32)g_maps_unlock);
       data.umaps = g_maps_unlock;
       saveData();
       kgm_log() << "updated gui";
@@ -349,18 +349,23 @@ private:
   void readData()
   {
     kgmString path;
+    kgmString delim;
+
+    kgmSystem::getPathDelim(delim);
 
 #ifdef ANDROID
     path = g_loc_dir + "/cdata";
 #else
     kgmSystem::getHomeDirectory(path);
 
-    path += "/.kSpacer";
+    path += delim;
+    path += ".kSpacer";
 
     if(!kgmSystem::isDirectory(path))
       return;
 
-    path += "/data";
+    path += delim;
+    path += "data";
 #endif;
 
     kgmFile f;
@@ -376,18 +381,23 @@ private:
   void saveData()
   {
     kgmString path;
+    kgmString delim;
+
+    kgmSystem::getPathDelim(delim);
 
 #ifdef ANDROID
     path = g_loc_dir + "/cdata";
 #else
     kgmSystem::getHomeDirectory(path);
 
-    path += "/.kSpacer";
+    path += delim;
+    path += ".kSpacer";
 
     if(!kgmSystem::isDirectory(path))
       kgmFile::make_directory(path);
 
-    path += "/data";
+    path += delim;
+    path += "data";
 #endif;
 
     kgmFile f;
