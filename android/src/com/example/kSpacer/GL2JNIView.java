@@ -386,10 +386,10 @@ class GL2JNIView extends GLSurfaceView {
             	}
             	GL2JNIView.isEvt = false;
             }
-            else
-            {
-              kSpacerLib.idle();
-            }
+            //else
+            //{
+            kSpacerLib.idle();
+            //}
         }
 
         public void onSurfaceChanged(GL10 gl, int width, int height) {
