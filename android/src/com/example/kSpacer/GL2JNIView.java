@@ -68,14 +68,14 @@ import javax.microedition.khronos.opengles.GL10;
  *   bit depths). Failure to do so would result in an EGL_BAD_MATCH error.
  */
 class GL2JNIView extends GLSurfaceView {
-	
+
     private static String TAG = "GL2JNIView";
     private static final boolean DEBUG = false;
     private static AssetManager assMan = null;
 
     public static Context ctx = null;
     public static Surface srf = null;
-    
+
 	public static final int EVT_KEYUP   = 0xf1;
 	public static final int EVT_KEYDOWN = 0xf2;
 	public static final int EVT_TOUCH   = 0xf3;
@@ -144,10 +144,10 @@ class GL2JNIView extends GLSurfaceView {
 
         });
     }
-    
+
     public void setEvent(int evtId)
     {
-    	
+
     }
 
     private static class ContextFactory implements GLSurfaceView.EGLContextFactory {
@@ -370,6 +370,8 @@ class GL2JNIView extends GLSurfaceView {
 
     private static class Renderer implements GLSurfaceView.Renderer {
         public void onDrawFrame(GL10 gl) {
+            kSpacerLib.idle();
+
             if(GL2JNIView.isEvt)
             {
             	switch(GL2JNIView.evtId)
@@ -386,19 +388,17 @@ class GL2JNIView extends GLSurfaceView {
             	}
             	GL2JNIView.isEvt = false;
             }
-            //else
-            //{
-            kSpacerLib.idle();
-            //}
         }
 
         public void onSurfaceChanged(GL10 gl, int width, int height) {
-        	assMan = GL2JNIView.ctx.getAssets();
+            assMan = GL2JNIView.ctx.getAssets();
             kSpacerLib.init(width, height, assMan, GL2JNIView.srf);
+            Log.v(TAG, "onSurfaceChanged");
         }
 
         public void onSurfaceCreated(GL10 gl, EGLConfig config) {
             // Do nothing.
+            Log.v(TAG, "onSurfaceCreated");
         }
     }
 }
