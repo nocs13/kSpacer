@@ -132,7 +132,7 @@ void kGui::onAction(kgmEvent* e, int a)
   else if(sid == "gameExit")
   {
     kgm_log() << "start level exit";
-    //m_game->gUnload();
+    m_game->gUnload();
     kgm_log() << "unload level";
     m_guiPause->hide();
     kgm_log() << "hide pause";
