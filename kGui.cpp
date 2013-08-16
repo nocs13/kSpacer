@@ -58,12 +58,6 @@ kGui::kGui(kgmGameBase* game)
   kgmGuiList* lst = m_guiLevels = new kgmGuiList(gui, w / 2, 10, w / 2 - 2, h - 100);
   lst->m_itemHeight = 40;
   lst->setSid("levels");
-//  lst->addItem("map000.kgm");
-//  lst->addItem("map001.kgm");
-//  lst->addItem("map002.kgm");
-//  lst->addItem("map003.kgm");
-//  lst->addItem("map004.kgm");
-//  lst->addItem("map005.kgm");
   gui->show();
 
   game->guiAdd(m_guiMain);
@@ -131,17 +125,12 @@ void kGui::onAction(kgmEvent* e, int a)
   }
   else if(sid == "gameExit")
   {
-    kgm_log() << "start level exit";
     m_game->gUnload();
-    kgm_log() << "unload level";
     m_guiPause->hide();
-    kgm_log() << "hide pause";
     m_guiMain->show();
-    kgm_log() << "show main";
 
     if(g_ms_camera)
       m_game->m_msAbs = false;
-    kgm_log() << "finish level exit";
   }
   else if(sid == "gameResume")
   {
