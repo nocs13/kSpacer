@@ -140,6 +140,7 @@ public:
             game->gCommand("gameover_fail");
 
           src->release();
+          game->gSwitch(kgmIGame::State_Uload);
         }
       }
     }
@@ -222,7 +223,6 @@ public:
 
   ~kGame()
   {
-    saveData();
   }
 
 //protected:
@@ -237,6 +237,16 @@ public:
     {
 
     }
+  }
+
+  void onClose()
+  {
+    if(gui)
+      gui->release();
+
+    saveData();
+
+    kgmGameBase::onClose();
   }
 
   void onKeyUp(int k){
