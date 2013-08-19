@@ -30,7 +30,7 @@
   <Position value='5.393172740936279 5.105494976043701 0.0'/>
   <Rotation value='0.0 -0.0 0.0'/>
  </kgmGameObject>
- <kgmActor name='Spacer.001' object='KSpacerA' parent='None' player='off'>
+ <kgmActor name='Spacer.001' object='KSpacerB' parent='None' player='off'>
   <Position value='-2.7127838134765625 10.496513366699219 6.8017934609088115e-06'/>
   <Rotation value='0.0 -0.0 0.0'/>
   <State value='idle'/>

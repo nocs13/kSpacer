@@ -180,6 +180,20 @@ public:
         os->remove();
       }
     }
+    else if(os->isType(ASp_Spacer::Class) && od->isType(ASpacer::Class))
+    {
+      ((kgmActor*)od)->m_health = 0;
+      ((kgmActor*)os)->m_health = 0;
+    }
+    else if(od->isType(ASp_GunFA::Class) && os->isType(ASpacer::Class))
+    {
+      ((kgmActor*)od)->m_health = 0;
+      ((kgmActor*)os)->m_health = 0;
+    }
+    else if(od->isType(ASp_Spaceship::Class) && os->isType(ASpacer::Class))
+    {
+      ((kgmActor*)os)->m_health = 0;
+    }
   }
 };
 
@@ -336,6 +350,10 @@ public:
       return new ASp_GunFA(this);
     }
     else if(t == "KSpacerA")
+    {
+      return new ASp_SpacerA(this);
+    }
+    else if(t == "KSpacerB")
     {
       return new ASp_SpacerA(this);
     }

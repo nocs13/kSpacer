@@ -1,5 +1,6 @@
 #ifndef ASP_SPACESHIP_H
 #define ASP_SPACESHIP_H
+
 class ASp_Spaceship: public kgmActor
 {
   KGM_OBJECT(ASp_Spaceship);

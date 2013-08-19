@@ -109,7 +109,7 @@ public:
     float dist = -1, angle = 0, side = 0;
     vec3  left, orin(0, 0, 1);
 
-    if(target)
+    if(target &&  kgmObject::isValid(target))
     {
       vec3 tpos   = target->getBody()->m_position;
       vec3 tdir   = tpos - m_body->m_position;

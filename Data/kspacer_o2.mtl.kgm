@@ -1,0 +1,12 @@
+<?xml version='1.0'?>
+<kgm>
+ <kgmMaterial name='Material'>
+  <Color value='0.800000011920929 0.800000011920929 0.800000011920929'/>
+  <Emmision value='1.0 1.0 1.0'/>
+  <Specular value='1.0 1.0 1.0'/>
+  <Shininess value='1.0'/>
+  <Alpha value='1.0'/>
+  <map_color value='kspacer_o2.col.tga'/>
+  <Shader value='none' />
+ </kgmMaterial>
+</kgm>

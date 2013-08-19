@@ -122,10 +122,10 @@ public:
     {
       vec3 pos = getBody()->position();
 
-      if(pos.x < -5000) pos.x =  5000;
-      if(pos.x >  5000) pos.x = -5000;
-      if(pos.y < -5000) pos.y =  5000;
-      if(pos.x >  5000) pos.y = -5000;
+      if(pos.x < -3000) pos.x =  3000;
+      if(pos.x >  3000) pos.x = -3000;
+      if(pos.y < -3000) pos.y =  3000;
+      if(pos.x >  3000) pos.y = -3000;
 
       getBody()->translate(pos);
     }
