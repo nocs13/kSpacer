@@ -6,9 +6,7 @@
   <Specular value='1.0 1.0 1.0'/>
   <Shininess value='1.0'/>
   <Alpha value='1.0'/>
-  <map_color value='kspacer_o1.tga'/>
-  <map_normal value='kspacer_o1.nor.tga' strength='0.009999999776482582' />
-  <map_specular value='kspacer_o1.spc.tga' strength='1.0' />
+  <map_color value='KSpaceshipA.col.tga'/>
   <Shader value='none' />
  </kgmMaterial>
 </kgm>

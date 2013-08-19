@@ -76,9 +76,9 @@ class GL2JNIView extends GLSurfaceView {
     public static Context ctx = null;
     public static Surface srf = null;
 
-	public static final int EVT_KEYUP   = 0xf1;
-	public static final int EVT_KEYDOWN = 0xf2;
-	public static final int EVT_TOUCH   = 0xf3;
+    public static final int EVT_KEYUP   = 0xf1;
+    public static final int EVT_KEYDOWN = 0xf2;
+    public static final int EVT_TOUCH   = 0xf3;
     public static boolean   isEvt   = false;
     public static int        evtId   = 0;
     public static int        evtKey  = 0;
