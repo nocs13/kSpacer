@@ -6,7 +6,7 @@
   <State value='None'/>
   <Target value='Player'/>
  </kgmActor>
- <kgmActor name='Spaceship.0' object='KSpaceshipA' parent='None' player='off'>
+ <kgmActor name='Spaceship.0' object='KSpaceshipB' parent='None' player='off'>
   <Position value='-14.685836791992188 23.362930297851562 -1.0481335266376846e-05'/>
   <Rotation value='0.0 -0.0 0.0'/>
   <State value='None'/>

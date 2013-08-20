@@ -180,7 +180,7 @@ public:
         os->remove();
       }
     }
-    else if(os->isType(ASp_Spacer::Class) && od->isType(ASpacer::Class))
+    else if(od->isType(ASp_SpacerA::Class) && os->isType(ASpacer::Class))
     {
       ((kgmActor*)od)->m_health = 0;
       ((kgmActor*)os)->m_health = 0;
@@ -358,6 +358,10 @@ public:
       return new ASp_SpacerA(this);
     }
     else if(t == "KSpaceshipA")
+    {
+      return new ASp_SpaceshipA(this);
+    }
+    else if(t == "KSpaceshipB")
     {
       return new ASp_SpaceshipA(this);
     }

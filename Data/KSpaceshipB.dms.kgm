@@ -1,0 +1,19 @@
+<?xml version='1.0'?>
+<kgm>
+ <kgmDummy name='GunFA.003' parent='spaceship-b'>
+  <Position value='-0.2310248613357544 4.607503890991211 0.0'/>
+  <Rotation value='0.0 -0.0 1.578788161277771'/>
+ </kgmDummy>
+ <kgmDummy name='GunFA.002' parent='spaceship-b'>
+  <Position value='0.4663858413696289 -4.734533309936523 0.0'/>
+  <Rotation value='0.0 -0.0 -1.5604456663131714'/>
+ </kgmDummy>
+ <kgmDummy name='GunFA.001' parent='spaceship-b'>
+  <Position value='-4.672615051269531 9.552427598924496e-11 0.0'/>
+  <Rotation value='0.0 -0.0 -3.140275478363037'/>
+ </kgmDummy>
+ <kgmDummy name='GunFA.000' parent='spaceship-b'>
+  <Position value='4.51519775390625 0.0 0.0'/>
+  <Rotation value='0.0 -0.0 0.0'/>
+ </kgmDummy>
+</kgm>
