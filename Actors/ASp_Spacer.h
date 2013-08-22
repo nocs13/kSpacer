@@ -24,7 +24,7 @@ public:
   ASp_Spacer(kgmIGame* g)
   {
     game      = g;
-    m_health  = 10;
+    m_health  = 15;
 
     speed_max = 0.05;
     speed_min = 0.01;
@@ -425,6 +425,22 @@ public:
 
     remove();
     explode = true;
+  }
+};
+
+class ASp_SpacerB: public ASp_SpacerA
+{
+  KGM_OBJECT(ASp_SpacerB);
+
+  kgmGameObject*  target;
+
+public:
+  ASp_SpacerB(kgmIGame* g)
+  :ASp_SpacerA(g)
+  {
+    target = null;
+    m_body->m_velocity = speed_min;
+    m_health = 25;
   }
 };
 #endif // ASP_SPACER_H

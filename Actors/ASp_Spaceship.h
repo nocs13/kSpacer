@@ -15,7 +15,7 @@ public:
   {
     game = g;
     explode = false;
-    m_health = 1;
+    m_health = 40;
 
     m_body->m_gravity = false;
     m_body->m_bound.min = vec3(-3, -3, -3);
@@ -63,7 +63,7 @@ public:
         kgmDummy*       dm = m_dummies[i];
         kgmGameObject*  go = (kgmGameObject*)dm->m_linked;
 
-        if(go && kgmObject::isValid(go) && go->getBody())
+        if(go && kgmObject::isValid(go) && go->isType(kgmGameObject::Class) && go->getBody())
         {
           vec3 v = getBody()->m_position +  dm->m_shift;
           vec3 r = getBody()->m_rotation +  dm->m_orient;
@@ -110,7 +110,7 @@ public:
     {
       kgmGameObject* go = (kgmGameObject*)m_dummies[i]->m_linked;
 
-      if(kgmObject::isValid(go))
+      if(kgmObject::isValid(go) && go->isType(kgmGameObject::Class))
       {
         go->event(this, "die");
         m_dummies[i]->m_linked = null;
@@ -157,6 +157,16 @@ public:
   void exit()
   {
     ASp_Spaceship::exit();
+  }
+};
+class ASp_SpaceshipB: public ASp_SpaceshipA
+{
+  KGM_OBJECT(ASp_SpaceshipB);
+public:
+  ASp_SpaceshipB(kgmIGame* g)
+    :ASp_SpaceshipA(g)
+  {
+    m_health = 60;
   }
 };
 #endif // ASP_SPACESHIP_H

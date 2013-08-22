@@ -32,8 +32,8 @@ kGui::kGui(kgmGameBase* game)
   btn->setSid("game");
   btn->setText(text);
   btn = new kgmGuiButton(gui, w/3, 0, w/3, 50);
-  text = "Settings";
-  btn->setSid("settings");
+  text = "Credits";
+  btn->setSid("credits");
   btn->setText(text);
   btn = new kgmGuiButton(gui, 2 * w/3, 0, w/3, 50);
   text = "Quit";
@@ -41,9 +41,9 @@ kGui::kGui(kgmGameBase* game)
   btn->setSid("quit");
 
   gui = new kgmGui(m_guiMain, 0, 50, w, h - 50);
-  gui->setSid("guiSettings");
+  gui->setSid("guiCredits");
   gui->hide();
-  m_guiSettings = gui;
+  m_guiCredits = gui;
 
   gui = new kgmGui(m_guiMain, 0, 50, w, h - 50);
   gui->setSid("guiGame");
@@ -99,12 +99,12 @@ void kGui::onAction(kgmEvent* e, int a)
   else if(sid == "game")
   {
     m_guiGame->show();
-    m_guiSettings->hide();
+    m_guiCredits->hide();
   }
-  else if(sid == "settings")
+  else if(sid == "credits")
   {
     m_guiGame->hide();
-    m_guiSettings->show();
+    m_guiCredits->show();
   }
   else if(sid == "levels")
   {

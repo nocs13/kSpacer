@@ -21,7 +21,8 @@ KGMOBJECT_IMPLEMENT(ASp_Gun, kgmActor);
 KGMOBJECT_IMPLEMENT(ASp_GunA, ASp_Gun);
 KGMOBJECT_IMPLEMENT(ASp_GunFA, ASp_Gun);
 KGMOBJECT_IMPLEMENT(ASp_Spacer, kgmActor);
-KGMOBJECT_IMPLEMENT(ASp_SpacerA, kgmActor);
+KGMOBJECT_IMPLEMENT(ASp_SpacerA, ASp_Spacer);
+KGMOBJECT_IMPLEMENT(ASp_SpacerB, ASp_SpacerA);
 KGMOBJECT_IMPLEMENT(ASp_Result, kgmGameObject);
 KGMOBJECT_IMPLEMENT(ASp_Skybox, kgmGameObject);
 KGMOBJECT_IMPLEMENT(ASp_MotorA, kgmGameObject);
@@ -40,6 +41,7 @@ KGMOBJECT_IMPLEMENT(ASp_AsteroidSpawner, kgmGameObject);
 KGMOBJECT_IMPLEMENT(ASp_SpacerSpawner, kgmGameObject);
 KGMOBJECT_IMPLEMENT(ASp_Spaceship, kgmActor);
 KGMOBJECT_IMPLEMENT(ASp_SpaceshipA, ASp_Spaceship);
+KGMOBJECT_IMPLEMENT(ASp_SpaceshipB, ASp_SpaceshipA);
 
 kgmString g_loc_dir;
 bool g_ms_camera = false;
@@ -180,7 +182,7 @@ public:
         os->remove();
       }
     }
-    else if(od->isType(ASp_SpacerA::Class) && os->isType(ASpacer::Class))
+    else if(od->isType(ASp_Spacer::Class) && os->isType(ASpacer::Class))
     {
       ((kgmActor*)od)->m_health = 0;
       ((kgmActor*)os)->m_health = 0;
@@ -355,7 +357,7 @@ public:
     }
     else if(t == "KSpacerB")
     {
-      return new ASp_SpacerA(this);
+      return new ASp_SpacerB(this);
     }
     else if(t == "KSpaceshipA")
     {
@@ -363,7 +365,7 @@ public:
     }
     else if(t == "KSpaceshipB")
     {
-      return new ASp_SpaceshipA(this);
+      return new ASp_SpaceshipB(this);
     }
     else if(t == "KSpacerSpawner")
     {
