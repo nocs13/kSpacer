@@ -19,7 +19,11 @@ else
 	RM = rm -f
 endif
 
-all:
+libkgmEngine.a:
+	make -C ../kgmEngine/
+
+all: libkgmEngine.a
+
 	$(CC) -g -c *.cpp $(DEFS) $(FLGS) $(DIRS) $(LIBS)
 	$(CC) -o kSpacer *.o ../kgmEngine/libkgmEngine.a $(DEFS) $(FLGS) $(DIRS) $(LIBS)
 

@@ -26,8 +26,8 @@
   <InputActive  button="4"  state="right" />
 
   <Visual id='Base'>
-   <Mesh value="kspacer_o1.kgm" />
-   <Material value="kspacer_o1.kgm" />
+   <Mesh value="kspacer_o1.msh.kgm" />
+   <Material value="kspacer_o1.mtl.kgm" />
   </Visual>
 
   <State id="idle" priority="1" time="-1" type="idle">
