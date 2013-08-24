@@ -5,6 +5,7 @@ build:
 	cp ../Data/* ./assets/.
 	$(NDK_ROOT)/ndk-build -B
 	ant clean && ant debug
+#	ant clean && ant release
 
 clean:
 	ant clean

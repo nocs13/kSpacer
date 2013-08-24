@@ -81,6 +81,11 @@ public:
   {
   }
 
+  void guiResize()
+  {
+    gui->resize();
+  }
+
   void update(u32 mls)
   {
     kgmActor::update(mls);
@@ -102,7 +107,7 @@ public:
       for(int i = 0; i < m_dummies.length(); i++)
       {
         kgmDummy*       dm = m_dummies[i];
-        kgmGameObject*  go = (kgmGameObject*)dm->m_linked;
+        kgmGameObject*  go = (kgmGameObject*)dm->linked();
 
         if(go && kgmObject::isValid(go) && go->getVisual())
         {
@@ -255,12 +260,12 @@ public:
 
         for(int i = 0; i < m_dummies.size(); i++)
         {
-          kgmGameObject* go = (kgmGameObject*)m_dummies[i]->m_linked;
+          kgmGameObject* go = (kgmGameObject*)m_dummies[i]->linked();
 
           if(kgmObject::isValid(go))
           {
             go->event(this, "die");
-            m_dummies[i]->m_linked = null;
+            m_dummies[i]->detach();
           }
         }
       }
@@ -412,7 +417,7 @@ public:
 
 
     go1->setId("explode1");
-    go2->setId("explode1");
+    go2->setId("explode2");
 
     game->gAppend(go1);
     game->gAppend(go2);

@@ -304,6 +304,21 @@ public:
     kgmGameBase::onMsMove(k, x, y);
   }
 
+  void onResize(int w, int h)
+  {
+    kgmGameBase::onResize(w, h);
+
+    if(m_state == kgmIGame::State_Play || m_state == kgmIGame::State_Pause)
+    {
+      ASpacer* gp = m_logic->m_gameplayer;
+
+      if(gp)
+      {
+        gp->guiResize();
+      }
+    }
+  }
+
   int gCommand(kgmString s)
   {
     if(s == "gameover_fail")

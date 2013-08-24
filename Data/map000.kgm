@@ -1,5 +1,13 @@
 <?xml version='1.0'?>
 <kgm>
+ <kgmLight name='Lamp.002'>
+  <Type value='Point'/>
+  <Color value='1.0 1.0 1.0'/>
+  <Position value='119.16321563720703 102.43803405761719 5.903861999511719'/>
+  <Rotation value='0. 0. 10'/>
+  <Intensity value='1.0'/>
+  <Shadows value='No'/>
+ </kgmLight>
  <kgmActor name='Spaceship.1' object='KSpaceshipA' parent='None' player='off'>
   <Position value='0.20134544372558594 -10.446582794189453 2.377677992626559e-05'/>
   <Rotation value='0.0 -0.0 0.0'/>

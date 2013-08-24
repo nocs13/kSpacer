@@ -51,6 +51,16 @@ class ASp_Gui: public kgmGui
         gui_foreground->setRect(0, 0, 2 * actor->m_health, 10);
       }
     }
+
+    void resize()
+    {
+      int cx, cy, cw, ch;
+
+      game->getWindow()->getRect(cx, cy, cw, ch);
+
+      gui_foreground->setRect(0, 0, 200, 10);
+      setRect(0, 0, 200, 10);
+    }
   };
 
   class GuiMap: public kgmGui
@@ -134,6 +144,15 @@ class ASp_Gui: public kgmGui
           (*i).gui->setRect(100 + x, 100 - y, 4, 4);
         }
       }
+    }
+
+    void resize()
+    {
+      int cx, cy, cw, ch;
+
+      game->getWindow()->getRect(cx, cy, cw, ch);
+
+      setRect(0, 20, 200, 200);
     }
   };
 
@@ -300,6 +319,27 @@ class ASp_Gui: public kgmGui
     {
 
     }
+
+    void resize()
+    {
+      int cx, cy, cw, ch;
+
+      game->getWindow()->getRect(cx, cy, cw, ch);
+
+      if(ch > cw)
+      {
+       setRect(cw / 2 - 150, ch - 100, 300, 100);
+      }
+      else
+      {
+        setRect(cw - 300, ch - 100, 300, 100);
+      }
+
+      btnUp->setRect(0, 0, 300, 40);
+      btnLeft->setRect(0, 40, 100, 60);
+      btnShoot->setRect(100, 40, 100, 60);
+      btnRight->setRect(200, 40, 100, 60);
+    }
   };
 
   kgmIGame*  game;
@@ -308,10 +348,16 @@ class ASp_Gui: public kgmGui
   GuiHealth* gui_health;
   GuiMap*    gui_map;
 
+  int        cw, ch;
+
 public:
   ASp_Gui(kgmIGame* g)
   {
+    int cx, cy, cw, ch;
+
     game = g;
+
+    game->getWindow()->getRect(cx, cy, cw, ch);
 
     gui_health = new GuiHealth(g);
     gui_map    = new GuiMap(g);
@@ -352,6 +398,13 @@ public:
     gui_health->update();
     gui_map->update();
     gui_input->update();
+  }
+
+  void resize()
+  {
+    gui_health->resize();
+    gui_map->resize();
+    gui_input->resize();
   }
 };
 
