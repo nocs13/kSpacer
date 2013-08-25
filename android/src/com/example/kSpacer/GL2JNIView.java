@@ -79,7 +79,8 @@ class GL2JNIView extends GLSurfaceView {
     public static final int EVT_KEYUP   = 0xf1;
     public static final int EVT_KEYDOWN = 0xf2;
     public static final int EVT_TOUCH   = 0xf3;
-    public static boolean   isEvt   = false;
+    public static boolean   isGL     = false;
+    public static boolean   isEvt    = false;
     public static int        evtId   = 0;
     public static int        evtKey  = 0;
     public static int        evtX    = 0;
@@ -136,10 +137,12 @@ class GL2JNIView extends GLSurfaceView {
             public void surfaceCreated(SurfaceHolder holder) {
                 Log.v(TAG, "surfaceCreated");
                 GL2JNIView.srf = holder.getSurface();
+                isGL = true;
             }
 
             public void surfaceDestroyed(SurfaceHolder holder) {
                 Log.v(TAG, "surfaceDestroyed");
+                isGL = false;
             }
 
         });
@@ -370,6 +373,9 @@ class GL2JNIView extends GLSurfaceView {
 
     private static class Renderer implements GLSurfaceView.Renderer {
         public void onDrawFrame(GL10 gl) {
+            if(!GL2JNIView.isGL)
+              return;
+
             kSpacerLib.idle();
 
             if(GL2JNIView.isEvt)
@@ -386,6 +392,7 @@ class GL2JNIView extends GLSurfaceView {
             		kSpacerLib.onTouch(GL2JNIView.evtKey, GL2JNIView.evtX, GL2JNIView.evtY);
             		break;
             	}
+
             	GL2JNIView.isEvt = false;
             }
         }

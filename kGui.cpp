@@ -48,14 +48,18 @@ kGui::kGui(kgmGameBase* game)
   gui = new kgmGui(m_guiMain, 0, 50, w, h - 50);
   gui->setSid("guiGame");
   m_guiGame = gui;
+  /*
   btn = new kgmGuiButton(gui, 1, 10, 100, 30);
   text = "Start";
   btn->setText(text);
+  btn->setSid("start");
   btn = new kgmGuiButton(gui, 1, 50, 100, 30);
   text = "Continue";
   btn->setText(text);
+  btn->setSid("continue");
+  */
 
-  kgmGuiList* lst = m_guiLevels = new kgmGuiList(gui, w / 2, 10, w / 2 - 2, h - 100);
+  kgmGuiList* lst = m_guiLevels = new kgmGuiList(gui, w / 2 - 150, 10, 300, h - 100);
   lst->m_itemHeight = 40;
   lst->setSid("levels");
   gui->show();
@@ -105,6 +109,16 @@ void kGui::onAction(kgmEvent* e, int a)
   {
     m_guiGame->hide();
     m_guiCredits->show();
+  }
+  else if(sid == "start")
+  {
+    m_guiGame->show();
+    m_guiCredits->hide();
+  }
+  else if(sid == "continue")
+  {
+    m_guiGame->show();
+    m_guiCredits->hide();
   }
   else if(sid == "levels")
   {

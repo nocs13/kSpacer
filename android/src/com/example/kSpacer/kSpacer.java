@@ -45,7 +45,9 @@ public class kSpacer extends Activity
             kSpacerLib.quit();
             m_test.finish();
         }
+
         Log.v(TAG, "Finished");
+        System.exit(0);
     }
 
     /** Called when the activity is first created. */

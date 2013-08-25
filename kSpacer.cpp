@@ -51,11 +51,14 @@ s8   g_maps_unlock = 1;
 
 const char* g_maps[] =
 {
+#ifdef TEST
   "map test0", "map000.kgm",
-  "map test1", "map001.kgm",
-  "map test2", "map002.kgm",
-  "map test3", "map003.kgm",
-  "map test4", "map004.kgm",
+#endif
+  "Mission 1", "map001.kgm",
+  "Mission 2", "map002.kgm",
+  "Mission 3", "map003.kgm",
+  "Mission 4", "map004.kgm",
+  "Mission 5", "map004.kgm",
 };
 
 kgmString kgame_get_map_by_id(s32 i)
@@ -503,7 +506,9 @@ public:
 };
 
 //main object
+//#ifndef ANDROID
 kSpacer theApp;
+//#endif
 //////////////
 
 //FOR ANDROID
@@ -544,17 +549,10 @@ JNIEXPORT void  JNICALL Java_com_example_kSpacer_kSpacerLib_onTouch(JNIEnv * env
 JNIEXPORT void JNICALL Java_com_example_kSpacer_kSpacerLib_init(JNIEnv* env, jobject obj,  jint width, jint height, jobject am,
                                                           jobject surface)
 {
-  /*jclass cls = env->GetObjectClass(obj);
-  jmethodID getFilesDir = env->GetMethodID(cls, "getFilesDir", "()Ljava/io/File;");
-  jobject dirobj = env->CallObjectMethod(obj,getFilesDir);
-  jclass dir = env->GetObjectClass(dirobj);
-  jmethodID getStoragePath = env->GetMethodID(dir, "getAbsolutePath", "()Ljava/lang/String;");
-  jstring path=(jstring)env->CallObjectMethod(dirobj, getStoragePath);
-  const char *pathstr=env->GetStringUTFChars(path, 0);
-  g_loc_dir = pathstr;
-  env->ReleaseStringUTFChars(path, pathstr);
+#ifdef TEST
+  kgm_log() << "Java_com_example_kSpacer_kSpacerLib_init\n";
+#endif
 
-  kgm_log() << "path: " << g_loc_dir.data();*/
   g_loc_dir = "/data/data/com.example.kSpacer";
 
   if(kgmGameApp::gameApplication()->game())
@@ -570,21 +568,37 @@ JNIEXPORT void JNICALL Java_com_example_kSpacer_kSpacerLib_init(JNIEnv* env, job
 
 JNIEXPORT void JNICALL Java_com_example_kSpacer_kSpacerLib_quit(JNIEnv * env, jobject obj)
 {
+#ifdef TEST
+  kgm_log() << "Java_com_example_kSpacer_kSpacerLib_quit \n";
+#endif
+
   kgmGameApp::gameApplication()->android_quit(env, obj);
 }
 
 JNIEXPORT void JNICALL Java_com_example_kSpacer_kSpacerLib_idle(JNIEnv * env, jobject obj)
 {
+#ifdef TEST
+  kgm_log() << "Java_com_example_kSpacer_kSpacerLib_idle \n";
+#endif
+
   kgmGameApp::gameApplication()->android_idle(env, obj);
 }
 
 JNIEXPORT void JNICALL Java_com_example_kSpacer_kSpacerLib_onKeyboard(JNIEnv * env, jobject obj, jint a, jint key)
 {
+#ifdef TEST
+  kgm_log() << "Java_com_example_kSpacer_kSpacerLib_onKeyboard \n";
+#endif
+
   kgmGameApp::gameApplication()->android_onKeyboard(env, obj, a, key);
 }
 
 JNIEXPORT void JNICALL Java_com_example_kSpacer_kSpacerLib_onTouch(JNIEnv * env, jobject obj, jint a, jint x, jint y)
 {
+#ifdef TEST
+  kgm_log() << "Java_com_example_kSpacer_kSpacerLib_onTouch \n";
+#endif
+
   kgmGameApp::gameApplication()->android_onTouch(env, obj,  a, x, y);
 }
 #endif
