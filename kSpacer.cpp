@@ -217,8 +217,9 @@ public:
   kGame()
   {
     gui = new kGui(this);
-    m_msAbs = false;
     m_gamemode = true;
+
+    setMsAbsolute(true);
 
     if(m_physics)
       m_physics->m_gravity = 1.0f;
@@ -277,13 +278,13 @@ public:
       {
         gPause(true);
         gui->m_guiPause->show();
-        m_msAbs = false;
+        setMsAbsolute(true);
       }
       else if(gState() == State_Pause)
       {
         gPause(false);
         gui->m_guiPause->hide();
-        m_msAbs = true;
+        setMsAbsolute(false);
       }
     }
   }

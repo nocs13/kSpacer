@@ -45,6 +45,10 @@ kGui::kGui(kgmGameBase* game)
   gui->hide();
   m_guiCredits = gui;
 
+  gui = new kgmGuiText(m_guiCredits, 10, 10, 300, 40);
+  gui->setText("Developer: Karakal_13");
+  gui->show();
+
   gui = new kgmGui(m_guiMain, 0, 50, w, h - 50);
   gui->setSid("guiGame");
   m_guiGame = gui;
@@ -133,7 +137,7 @@ void kGui::onAction(kgmEvent* e, int a)
       m_guiMain->hide();
 
       if(g_ms_camera)
-        m_game->m_msAbs = true;
+        m_game->setMsAbsolute(false);
 
       kgame_set_current_map(i + 1);
     }
@@ -145,7 +149,7 @@ void kGui::onAction(kgmEvent* e, int a)
     m_guiMain->show();
 
     if(g_ms_camera)
-      m_game->m_msAbs = false;
+      m_game->setMsAbsolute(true);
   }
   else if(sid == "gameResume")
   {
@@ -153,7 +157,7 @@ void kGui::onAction(kgmEvent* e, int a)
     m_game->gPause(false);
 
     if(g_ms_camera)
-      m_game->m_msAbs = true;
+      m_game->setMsAbsolute(false);
   }
 }
 
@@ -162,7 +166,8 @@ void kGui::viewAgain()
   m_guiMain->show();
 
   if(g_ms_camera)
-    m_game->m_msAbs = false;
+    m_game->setMsAbsolute(true);
+
 }
 
 void kGui::updateMaps(char *maps[], u32 cnt)
