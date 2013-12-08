@@ -227,8 +227,8 @@ public:
     if(m_logic)
     {
       m_logic->release();
-      m_logic = new ASp_Logic(this);
     }
+    m_logic = new ASp_Logic(this);
 
     data.sig  = 0xffff;
     data.cmap = 1;

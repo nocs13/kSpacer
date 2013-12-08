@@ -21,3 +21,5 @@ kGui.cpp
 kGui.h
 kSpacer.cpp
 README.md
+Data/base.lua
+Data/gui.glsl
