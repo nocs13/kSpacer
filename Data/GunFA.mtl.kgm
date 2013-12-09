@@ -8,7 +8,7 @@
   <Alpha value='1.0'/>
   <map_color value='GunFA.col.tga'/>
 
-  <Shader value="light"/>
+  <Shader value="poor"/>
  </kgmMaterial>
 </kgm>
 
