@@ -78,9 +78,10 @@ public:
 class ASp_MotorA: public kgmGameObject
 {
   KGM_OBJECT(ASp_MotorA);
-  kgmIGame*     game;
-  kgmMesh*      mesh;
-  kgmMaterial*  mtl;
+  kgmIGame*      game;
+  kgmMesh*       mesh;
+  kgmMaterial*   mtl;
+  kgmParticles*  ptl;
 public:
   ASp_MotorA(kgmIGame* g)
   {
@@ -97,43 +98,57 @@ public:
     mtl->m_type = "simple";
     mtl->m_shader = kgmMaterial::ShaderNone;
 
-    mesh = new kgmMesh();
+    ptl = new kgmParticles();
+    ptl->m_typerender = kgmParticles::RTypePoint;
+    ptl->m_count      = 50;
+    ptl->m_speed      = 10.0f;
+    ptl->m_life       = 1000;
+    ptl->build();
+    m_visual->set(ptl);
+
+    /*mesh = new kgmMesh();
     ASp_Vertex* v = (ASp_Vertex*)mesh->vAlloc(18, kgmMesh::FVF_P_C_T);
 
-    v[0]   = { {0, -0.1, -0.1}, 0xffffffff, {0, 1}};
-    v[1]   = { {0, -0.1, 0.1},  0xffffffff, {0, 0}};
-    v[2]   = { {0, 0.1, 0.1},   0xffffffff, {1, 0}};
-    v[3]   = { {0, 0.1, 0.1},   0xffffffff, {1, 0}};
-    v[4]   = { {0, 0.1, -0.1},  0xffffffff, {1, 1}};
-    v[5]   = { {0, -0.1, -0.1}, 0xffffffff, {0, 1}};
+    v[0]   = { {0, -0.1, -0.1}, 0xffffffff, {0, 1} };
+    v[1]   = { {0, -0.1, 0.1},  0xffffffff, {0, 0} };
+    v[2]   = { {0, 0.1, 0.1},   0xffffffff, {1, 0} };
+    v[3]   = { {0, 0.1, 0.1},   0xffffffff, {1, 0} };
+    v[4]   = { {0, 0.1, -0.1},  0xffffffff, {1, 1} };
+    v[5]   = { {0, -0.1, -0.1}, 0xffffffff, {0, 1} };
 
-    v[6]   = { {0, -0.1, 0},  0xffffffff, {0, 1}};
-    v[7]   = { {0,  0.1, 0},  0xffffffff, {0, 0}};
-    v[8]   = { {-1,  0.1, 0}, 0xffffffff, {1, 0}};
-    v[9]   = { {-1, 0.1, 0},  0xffffffff, {1, 0}};
-    v[10]  = { {-1, -0.1, 0}, 0xffffffff, {1, 1}};
-    v[11]  = { {0, -0.1, 0},  0xffffffff, {0, 1}};
+    v[6]   = { {0, -0.1, 0},  0xffffffff, {0, 1} };
+    v[7]   = { {0,  0.1, 0},  0xffffffff, {0, 0} };
+    v[8]   = { {-1,  0.1, 0}, 0xffffffff, {1, 0} };
+    v[9]   = { {-1, 0.1, 0},  0xffffffff, {1, 0} };
+    v[10]  = { {-1, -0.1, 0}, 0xffffffff, {1, 1} };
+    v[11]  = { {0, -0.1, 0},  0xffffffff, {0, 1} };
 
-    v[12]  = { {0, 0, -0.1},  0xffffffff, {0, 1}};
-    v[13]  = { {0, 0, 0.1},   0xffffffff, {0, 0}};
-    v[14]  = { {-1, 0, 0.1},  0xffffffff, {1, 0}};
-    v[15]  = { {-1, 0, 0.1},  0xffffffff, {1, 0}};
-    v[16]  = { {-1, 0, -0.1}, 0xffffffff, {1, 1}};
-    v[17]  = { {0, 0, -0.1},  0xffffffff, {0, 1}};
+    v[12]  = { {0, 0, -0.1},  0xffffffff, {0, 1} };
+    v[13]  = { {0, 0, 0.1},   0xffffffff, {0, 0} };
+    v[14]  = { {-1, 0, 0.1},  0xffffffff, {1, 0} };
+    v[15]  = { {-1, 0, 0.1},  0xffffffff, {1, 0} };
+    v[16]  = { {-1, 0, -0.1}, 0xffffffff, {1, 1} };
+    v[17]  = { {0, 0, -0.1},  0xffffffff, {0, 1} };
 
-    m_visual->set(mesh);
+    m_visual->set(mesh);*/
     m_visual->set(mtl);
   }
 
   ~ASp_MotorA()
   {
-    mesh->release();
+    //mesh->release();
     mtl->release();
+    ptl->release();
   }
 
   void update(u32 mls)
   {
-    //kgmGameObject::update(mls);
+    kgmGameObject::update(mls);
+
+    if(m_parent && m_parent->getBody())
+    {
+      ptl->direction = m_parent->getBody()->direction() * -1.0f;
+    }
   }
 
   void event(kgmObject* o, kgmString arg)
@@ -375,7 +390,7 @@ public:
     particles->m_life    = 2000;
     particles->div_life  = 1.0;
     particles->build();
-    particles->set(material);
+    m_visual->set(material);
     m_visual->set(particles);
   }
 
@@ -426,7 +441,8 @@ public:
     particles->m_life  = 5000;
     particles->div_speed = .5;
     particles->build();
-    particles->set(material);
+
+    m_visual->set(material);
     m_visual->set(particles);
   }
 
@@ -486,7 +502,8 @@ public:
     particles->div_life = 1.0;
 
     particles->build();
-    particles->set(material);
+
+    m_visual->set(material);
     m_visual->set(particles);
 
     setPosition(pos);
