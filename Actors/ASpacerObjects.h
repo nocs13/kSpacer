@@ -99,10 +99,16 @@ public:
     mtl->m_shader = kgmMaterial::ShaderNone;
 
     ptl = new kgmParticles();
-    ptl->m_typerender = kgmParticles::RTypePoint;
-    ptl->m_count      = 50;
-    ptl->m_speed      = 10.0f;
-    ptl->m_life       = 1000;
+    ptl->m_typerender  = kgmParticles::RTypePoint;
+    ptl->m_count       = 10;
+    ptl->m_speed       = 5.0f;
+    ptl->m_life        = 200;
+    ptl->div_life      = 0.5;
+    ptl->div_speed     = 0.5;
+    ptl->direction     = vec3(-1,0,0);
+    ptl->div_direction = 0.5;
+    ptl->st_size       = .10f;
+    ptl->en_size       = .01f;
     ptl->build();
     m_visual->set(ptl);
 
@@ -144,11 +150,6 @@ public:
   void update(u32 mls)
   {
     kgmGameObject::update(mls);
-
-    if(m_parent && m_parent->getBody())
-    {
-      ptl->direction = m_parent->getBody()->direction() * -1.0f;
-    }
   }
 
   void event(kgmObject* o, kgmString arg)
