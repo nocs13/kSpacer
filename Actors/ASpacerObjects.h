@@ -79,9 +79,11 @@ class ASp_MotorA: public kgmGameObject
 {
   KGM_OBJECT(ASp_MotorA);
   kgmIGame*      game;
-  kgmMesh*       mesh;
   kgmMaterial*   mtl;
   kgmParticles*  ptl;
+
+  kgmVisual*     visual;
+  kgmMesh*       mesh;
 public:
   ASp_MotorA(kgmIGame* g)
   {
@@ -94,25 +96,27 @@ public:
     mtl->m_blend = true;
     mtl->m_srcblend = gcblend_srcalpha;
     mtl->m_dstblend = gcblend_srcialpha;
-    mtl->m_tex_color = g->getResources()->getTexture("point_a.tga");
+    mtl->m_tex_color = g->getResources()->getTexture("point_d.tga");
     mtl->m_type = "simple";
     mtl->m_shader = kgmMaterial::ShaderNone;
 
     ptl = new kgmParticles();
     ptl->m_typerender  = kgmParticles::RTypePoint;
-    ptl->m_count       = 10;
-    ptl->m_speed       = 5.0f;
+    ptl->m_count       = 25;
+    ptl->m_speed       = 2.0f;
     ptl->m_life        = 200;
-    ptl->div_life      = 0.5;
-    ptl->div_speed     = 0.5;
+    ptl->div_life      = 0.95;
+    ptl->div_speed     = 0.95;
     ptl->direction     = vec3(-1,0,0);
     ptl->div_direction = 0.5;
-    ptl->st_size       = .10f;
-    ptl->en_size       = .01f;
+    ptl->st_size       = .09f;
+    ptl->en_size       = .02f;
     ptl->build();
     m_visual->set(ptl);
+    m_visual->set(mtl);
 
-    /*mesh = new kgmMesh();
+    visual = new kgmVisual();
+    mesh = new kgmMesh();
     ASp_Vertex* v = (ASp_Vertex*)mesh->vAlloc(18, kgmMesh::FVF_P_C_T);
 
     v[0]   = { {0, -0.1, -0.1}, 0xffffffff, {0, 1} };
@@ -136,15 +140,17 @@ public:
     v[16]  = { {-1, 0, -0.1}, 0xffffffff, {1, 1} };
     v[17]  = { {0, 0, -0.1},  0xffffffff, {0, 1} };
 
-    m_visual->set(mesh);*/
-    m_visual->set(mtl);
+    visual->set(mesh);
+    visual->set(mtl);
+    //g->getGraphics()->add(visual);
   }
 
   ~ASp_MotorA()
   {
-    //mesh->release();
+    mesh->release();
     mtl->release();
     ptl->release();
+    visual->release();
   }
 
   void update(u32 mls)
