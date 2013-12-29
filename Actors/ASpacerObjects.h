@@ -112,8 +112,6 @@ public:
     ptl->st_size       = .09f;
     ptl->en_size       = .02f;
     ptl->build();
-    m_visual->set(ptl);
-    m_visual->set(mtl);
 
     visual = new kgmVisual();
     mesh = new kgmMesh();
@@ -140,9 +138,11 @@ public:
     v[16]  = { {-1, 0, -0.1}, 0xffffffff, {1, 1} };
     v[17]  = { {0, 0, -0.1},  0xffffffff, {0, 1} };
 
+    m_visual->set(mesh);
+    m_visual->set(mtl);
     visual->set(mesh);
     visual->set(mtl);
-    //g->getGraphics()->add(visual);
+    ((kgmGameBase*)game)->m_render->add(visual);
   }
 
   ~ASp_MotorA()
@@ -156,6 +156,8 @@ public:
   void update(u32 mls)
   {
     kgmGameObject::update(mls);
+    visual->m_transform = m_visual->m_transform;
+    visual->update();
   }
 
   void event(kgmObject* o, kgmString arg)

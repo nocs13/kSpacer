@@ -28,6 +28,7 @@ void main(void)
    Ldist = distance(g_vLight.xyz, V); //length(g_vLight.xyz - V)
 
    gl_Position  = g_mProj * g_mView * vec4(V, 1.0);
+   gl_FrontColor = g_Color;
    Texcoord     = g_Texcoord;
 }
 
@@ -62,7 +63,7 @@ void main( void )
 
  col = clamp(col, 0.0, 1.0);
 
- gl_FragColor = vec4(col.x, col.y, col.z, color.w);
+ gl_FragColor = gl_Color * vec4(col.x, col.y, col.z, color.w);
 // gl_FragColor = color;
 // gl_FragColor = specular;
 // gl_FragColor = vec4(1, 0, 0, 1);
