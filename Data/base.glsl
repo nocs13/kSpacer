@@ -27,9 +27,9 @@ void main(void)
    L = normalize(g_vLight.xyz - V);
    Ldist = distance(g_vLight.xyz, V); //length(g_vLight.xyz - V)
 
-   gl_Position  = g_mProj * g_mView * vec4(V, 1.0);
+   gl_Position   = g_mProj * g_mView * vec4(V, 1.0);
    gl_FrontColor = g_Color;
-   Texcoord     = g_Texcoord;
+   Texcoord      = g_Texcoord;
 }
 
 //Fragment Shader
@@ -37,6 +37,8 @@ uniform sampler2D g_txColor;
 uniform sampler2D g_txNormal;
 uniform sampler2D g_txSpecular;
 uniform vec3      g_vEyeDir;
+
+attribute vec4    g_Color;
 
 varying vec2   Texcoord;
 varying vec3   N;
@@ -50,21 +52,16 @@ void main( void )
  vec4 normal    = texture2D(g_txNormal,   Texcoord);
  vec4 specular  = texture2D(g_txSpecular, Texcoord);
 
- normal.xyz = N;//normal.xyz + N;
+ normal.xyz = normal.xyz + N;
  normal.xyz = normalize(normal.xyz);
 
  float intensity  = 1.0;
        intensity  = clamp(2.0 * dot(normal.xyz, L), 0.1, 1.0);
-//       intensity += dot(normal.xyz, g_vEyeDir);
        intensity  = clamp(intensity, 0.25, 1.0);
 
- vec3  col = (color.xyz + specular.xyz) * intensity;
-// vec3  col = (color.xyz) * intensity;
+ vec4  col = vec4(color.xyz * intensity, color.w) + vec4(specular.xyz, 0);
 
  col = clamp(col, 0.0, 1.0);
 
- gl_FragColor = gl_Color * vec4(col.x, col.y, col.z, color.w);
-// gl_FragColor = color;
-// gl_FragColor = specular;
-// gl_FragColor = vec4(1, 0, 0, 1);
+ gl_FragColor = col;
 }

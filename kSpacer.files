@@ -24,3 +24,5 @@ README.md
 Data/gui.glsl
 Data/default.glsl
 Data/base.glsl
+Data/none.glsl
+Data/light.glsl

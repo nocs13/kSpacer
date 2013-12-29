@@ -314,7 +314,7 @@ public:
 
     if(m_state == kgmIGame::State_Play || m_state == kgmIGame::State_Pause)
     {
-      ASpacer* gp = m_logic->m_gameplayer;
+      ASpacer* gp = (ASpacer*)m_logic->m_gameplayer;
 
       if(gp)
       {
