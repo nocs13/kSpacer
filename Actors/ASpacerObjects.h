@@ -92,10 +92,10 @@ public:
 
     mtl = new kgmMaterial();
     mtl->m_2side = true;
-
     mtl->m_blend = true;
+    mtl->m_depth = false;
     mtl->m_srcblend = gcblend_srcalpha;
-    mtl->m_dstblend = gcblend_srcialpha;
+    mtl->m_dstblend = gcblend_one;
     mtl->m_tex_color = g->getResources()->getTexture("point_d.tga");
     mtl->m_type = "simple";
     mtl->m_shader = kgmMaterial::ShaderBlend;
@@ -109,7 +109,7 @@ public:
     ptl->div_speed     = 0.95;
     ptl->direction     = vec3(-1,0,0);
     ptl->div_direction = 0.5;
-    ptl->st_size       = .09f;
+    ptl->st_size       = .08f;
     ptl->en_size       = .02f;
     ptl->build();
 
@@ -124,19 +124,19 @@ public:
     v[4]   = { {0, 0.1, -0.1},  0xffffffff, {1, 1} };
     v[5]   = { {0, -0.1, -0.1}, 0xffffffff, {0, 1} };
 
-    v[6]   = { {0, -0.1, 0},  0xffffffff, {0, 1} };
-    v[7]   = { {0,  0.1, 0},  0xffffffff, {0, 0} };
-    v[8]   = { {-1,  0.1, 0}, 0xffffffff, {1, 0} };
-    v[9]   = { {-1, 0.1, 0},  0xffffffff, {1, 0} };
-    v[10]  = { {-1, -0.1, 0}, 0xffffffff, {1, 1} };
-    v[11]  = { {0, -0.1, 0},  0xffffffff, {0, 1} };
+    v[6]   = { {0, -0.1, 0},  0xffffffff, {0.5, 1} };
+    v[7]   = { {0,  0.1, 0},  0xffffffff, {0.5, 0} };
+    v[8]   = { {-0.5,  0.1, 0}, 0xffffffff, {1, 0} };
+    v[9]   = { {-0.5, 0.1, 0},  0xffffffff, {1, 0} };
+    v[10]  = { {-0.5, -0.1, 0}, 0xffffffff, {1, 1} };
+    v[11]  = { {0, -0.1, 0},  0xffffffff, {0.5, 1} };
 
-    v[12]  = { {0, 0, -0.1},  0xffffffff, {0, 1} };
-    v[13]  = { {0, 0, 0.1},   0xffffffff, {0, 0} };
-    v[14]  = { {-1, 0, 0.1},  0xffffffff, {1, 0} };
-    v[15]  = { {-1, 0, 0.1},  0xffffffff, {1, 0} };
-    v[16]  = { {-1, 0, -0.1}, 0xffffffff, {1, 1} };
-    v[17]  = { {0, 0, -0.1},  0xffffffff, {0, 1} };
+    v[12]  = { {0, 0, -0.1},  0xffffffff, {0.5, 1} };
+    v[13]  = { {0, 0, 0.1},   0xffffffff, {0.5, 0} };
+    v[14]  = { {-0.5, 0, 0.1},  0xffffffff, {1, 0} };
+    v[15]  = { {-0.5, 0, 0.1},  0xffffffff, {1, 0} };
+    v[16]  = { {-0.5, 0, -0.1}, 0xffffffff, {1, 1} };
+    v[17]  = { {0, 0, -0.1},  0xffffffff, {0.5, 1} };
 
     m_visual->set(mesh);
     m_visual->set(mtl);
@@ -155,9 +155,9 @@ public:
 
   void update(u32 mls)
   {
-    kgmGameObject::update(mls);
     visual->m_transform = m_visual->m_transform;
     visual->update();
+    kgmGameObject::update(mls);
   }
 
   void event(kgmObject* o, kgmString arg)
