@@ -38,8 +38,6 @@ uniform sampler2D g_txNormal;
 uniform sampler2D g_txSpecular;
 uniform vec3      g_vEyeDir;
 
-attribute vec4    g_Color;
-
 varying vec2   Texcoord;
 varying vec3   N;
 varying vec3   V;
@@ -63,5 +61,5 @@ void main( void )
 
  col = clamp(col, 0.0, 1.0);
 
- gl_FragColor = col;
+ gl_FragColor = gl_Color * col;
 }

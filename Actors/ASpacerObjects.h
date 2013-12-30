@@ -98,7 +98,7 @@ public:
     mtl->m_dstblend = gcblend_srcialpha;
     mtl->m_tex_color = g->getResources()->getTexture("point_d.tga");
     mtl->m_type = "simple";
-    mtl->m_shader = kgmMaterial::ShaderNone;
+    mtl->m_shader = kgmMaterial::ShaderBlend;
 
     ptl = new kgmParticles();
     ptl->m_typerender  = kgmParticles::RTypePoint;
@@ -140,7 +140,7 @@ public:
 
     m_visual->set(mesh);
     m_visual->set(mtl);
-    visual->set(mesh);
+    visual->set(ptl);
     visual->set(mtl);
     ((kgmGameBase*)game)->m_render->add(visual);
   }
