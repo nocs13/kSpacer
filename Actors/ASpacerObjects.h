@@ -201,7 +201,7 @@ public:
     mtl->m_srcblend = gcblend_srcalpha;
     mtl->m_dstblend = gcblend_srcialpha;
     mtl->m_tex_color = g->getResources()->getTexture("point_a.tga");
-    mtl->m_shader = kgmMaterial::ShaderNone;
+    mtl->m_shader = kgmMaterial::ShaderBlend;
 
     mesh = new kgmMesh();
     Vertex* v = (Vertex*)mesh->vAlloc(18, kgmMesh::FVF_P_C_T);
