@@ -394,6 +394,7 @@ public:
     m_visual  = new kgmVisual();
 
     material = new kgmMaterial();
+    material->m_depth        = false;
     material->m_blend        = true;
     material->m_srcblend     = gcblend_srcalpha;
     material->m_dstblend     = gcblend_one;
@@ -450,7 +451,7 @@ public:
     material->m_srcblend     = gcblend_srcalpha;
     material->m_dstblend     = gcblend_one;
     material->m_type         = "simple";
-    material->m_shader       = kgmMaterial::ShaderNone;
+    material->m_shader       = kgmMaterial::ShaderBlend;
     material->m_tex_color    = g->getResources()->getTexture("smoke_a.tga");
 
     particles->m_speed = .01;
@@ -501,11 +502,12 @@ public:
     m_visual  = new kgmVisual();
 
     material = new kgmMaterial();
+    material->m_depth        = false;
     material->m_blend        = true;
     material->m_srcblend     = gcblend_srcalpha;
     material->m_dstblend     = gcblend_one;
     material->m_type         = "simple";
-    material->m_shader       = kgmMaterial::ShaderNone;
+    material->m_shader       = kgmMaterial::ShaderBlend;
     material->m_tex_color    = g->getResources()->getTexture(tid);
 
     particles->direction = vec3(1, 1, 0.4);
