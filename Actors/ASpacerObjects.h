@@ -282,8 +282,10 @@ class ASp_Asteroid: public kgmGameObject
 {
   KGM_OBJECT(ASp_Asteroid);
 
-  kgmMesh* msh;
+  kgmMesh*     msh;
   kgmMaterial* mtl;
+
+  float        angle;
 
 public:
   ASp_Asteroid(kgmIGame* g, u32 type)
@@ -301,11 +303,9 @@ public:
     m_body->m_udata = this;
     m_body->m_gravity = false;
     m_body->m_velocity = 0.01 + 0.02 * 1.0f / (1 + rand()%30);
-    //m_body->m_direction = vec3((float)pow(-1, rand() % 2) / (1 + rand()%30),
-    //                           (float)pow(-1, rand() % 2) / (1 + rand()%30),
-                               //(float)pow(-1, rand() % 2) / (1 + rand()%30)
-    //                           0);
-    //m_body->m_direction.normalize();
+    m_body->rotate(vec3((float)pow(-1, rand() % 2) / (1 + rand()%30),
+                               (float)pow(-1, rand() % 2) / (1 + rand()%30),
+                               0));
     m_body->m_bound.min = vec3(-1, -1, -1);
     m_body->m_bound.max = vec3( 1,  1,  1);
   }
@@ -319,6 +319,14 @@ public:
   void update(u32 t)
   {
     kgmGameObject::update(t);
+
+    angle += (0.0001f * t);
+
+    mtx4 mrt;
+    vec3 vrt(0.5f * angle, 0.7f * angle, 0);
+
+    mrt.rotate(vrt);
+    m_visual->m_transform = mrt * m_visual->m_transform;
   }
 };
 
