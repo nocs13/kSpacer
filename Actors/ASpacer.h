@@ -40,7 +40,7 @@ public:
 
     gui   = new ASp_Gui(game);
 
-    m_health = 100;
+    m_health = 10000;
     setId("MainPlayer");
 
     m_gameplayer = true;
@@ -101,7 +101,6 @@ public:
       my.rotate(yaaw, vy);
 
       mr = my * mx;
-      //mr.rotate(-roll, yaaw, -pich);
       m_visual->m_transform = mr * m_visual->m_transform;
 
       for(int i = 0; i < m_dummies.length(); i++)
@@ -114,11 +113,11 @@ public:
           mtx4 m;
           vec3 v = dm->m_shift;
 
-          //v.x -= 2.0f;
           m.identity();
           m.translate(v);
 
           go->getVisual()->m_transform = m * m_visual->m_transform;
+          go->update(mls);
         }
       }
     }

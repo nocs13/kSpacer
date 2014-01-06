@@ -155,15 +155,25 @@ public:
 
   void update(u32 mls)
   {
+    if(!valid())
+      return;
+
     visual->m_transform = m_visual->m_transform;
     visual->update();
-    kgmGameObject::update(mls);
+    //kgmGameObject::update(mls);
+
+    if(m_parent && m_parent->getBody())
+    {
+      ptl->m_speed = 2.0 + 25 * m_parent->getBody()->m_velocity;
+    }
   }
 
   void event(kgmObject* o, kgmString arg)
   {
     if(arg == "die" && o == m_parent)
     {
+      visual->disable();
+      visual->remove();
       remove();
     }
   }

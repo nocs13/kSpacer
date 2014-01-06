@@ -57,7 +57,7 @@ void main( void )
        intensity  = clamp(2.0 * dot(normal.xyz, L), 0.1, 1.0);
        intensity  = clamp(intensity, 0.25, 1.0);
 
- vec4  col = vec4(color.xyz * intensity, color.w) + vec4(specular.xyz, 0);
+ vec4  col = vec4(color.xyz * intensity, color.w);// + vec4(specular.xyz, 0);
 
  col = clamp(col, 0.0, 1.0);
 
