@@ -1,6 +1,4 @@
 <!xml version="1.0">
-<Font>
- <Texture>fonta.tga</Texture>
- <Rows>16</Rows>
- <Columns>16</Columns>
+<Font name="kgmfont" cols="16" rows="16" base="0">
+ <Texture value="fonta.tga"/>
 </Font>
