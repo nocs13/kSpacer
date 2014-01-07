@@ -162,7 +162,7 @@ public:
     visual->update();
     //kgmGameObject::update(mls);
 
-    if(m_parent && m_parent->getBody())
+    if(m_parent && kgmObject::isValid(m_parent) && m_parent->getBody())
     {
       ptl->m_speed = 2.0 + 25 * m_parent->getBody()->m_velocity;
     }
@@ -206,7 +206,7 @@ public:
 
     mtl = new kgmMaterial();
     mtl->m_2side = true;
-
+    mtl->m_depth = false;
     mtl->m_blend = true;
     mtl->m_srcblend = gcblend_srcalpha;
     mtl->m_dstblend = gcblend_srcialpha;
@@ -409,7 +409,7 @@ public:
     material->m_srcblend     = gcblend_srcalpha;
     material->m_dstblend     = gcblend_one;
     material->m_type         = "simple";
-    material->m_shader       = kgmMaterial::ShaderNone;
+    material->m_shader       = kgmMaterial::ShaderBlend;
     material->m_tex_color    = g->getResources()->getTexture("fire_a.tga");
 
     particles->m_count   = 10;
