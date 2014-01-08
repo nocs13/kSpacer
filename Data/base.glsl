@@ -59,13 +59,15 @@ void main( void )
  vec4 normal    = texture2D(g_txNormal,   Texcoord);
  vec4 specular  = texture2D(g_txSpecular, Texcoord);
 
- normal.xyz = normal.xyz + N;
+ normal = (2.0 * normal) - 1.0;
+ normal.xyz = normal.xyz;// + N;
  //normal.xyz = N;
  normal.xyz = normalize(normal.xyz);
 
+
  float intensity  = 1.0;
-       intensity  = 2.0 * max(dot(normal.xyz, L), 0.0);// * Lforse;
-       intensity  = clamp(intensity, 0.1, 1.0);
+       intensity  = max(dot(normal.xyz, normalize(L)), 0.0);// * Lforse;
+       intensity  = clamp(intensity, 0.2, 1.0);
        //intensity  = max(dot(normal.xyz, L), 0.0);
 
  vec4  col = vec4(color.xyz * intensity, color.w) + vec4(specular.xyz, 0);

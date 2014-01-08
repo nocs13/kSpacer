@@ -208,9 +208,9 @@ public:
     mtl->m_2side = true;
     mtl->m_depth = false;
     mtl->m_blend = true;
-    mtl->m_srcblend = gcblend_srcalpha;
-    mtl->m_dstblend = gcblend_srcialpha;
-    mtl->m_tex_color = g->getResources()->getTexture("point_a.tga");
+    mtl->m_srcblend = gcblend_one;
+    mtl->m_dstblend = gcblend_one;
+    mtl->m_tex_color = g->getResources()->getTexture("point_redd.tga");
     mtl->m_shader = kgmMaterial::ShaderBlend;
 
     mesh = new kgmMesh();
@@ -284,7 +284,7 @@ public:
   ASp_LaserB(kgmIGame* g, u32 time, vec3 pos, vec3 rot, float speed, float len=0.5)
     :ASp_Laser(g, time, pos, rot, speed, len)
   {
-    mtl->m_tex_color = g->getResources()->getTexture("point_c.tga");
+    mtl->m_tex_color = g->getResources()->getTexture("point_yelloww.tga");
   }
 };
 
@@ -302,6 +302,7 @@ public:
   {
     m_visual = new kgmVisual();
     msh = g->getResources()->getMesh("kasteroid_o2.kgm");
+
     mtl = new kgmMaterial();
     mtl->m_shader = kgmMaterial::ShaderBase;
     mtl->m_tex_color = g->getResources()->getTexture("asteroid_0.tga");
@@ -313,14 +314,13 @@ public:
     m_body->m_udata = this;
     m_body->m_gravity = false;
     m_body->m_velocity = 0.01 + 0.02 * 1.0f / (1 + rand()%30);
-    m_body->rotate(vec3((float)pow(-1, rand() % 2) / (1 + rand()%30),
-                               (float)pow(-1, rand() % 2) / (1 + rand()%30),
-                               0));
+    m_body->rotate(vec3(0, 0, DEGTORAD(rand()%360)));
+
     m_body->m_bound.min = vec3(-1, -1, -1);
     m_body->m_bound.max = vec3( 1,  1,  1);
   }
 
-  ~ASp_Asteroid()
+  virtual ~ASp_Asteroid()
   {
     msh->release();
     mtl->release();
@@ -340,12 +340,13 @@ public:
   }
 };
 
-class ASp_AsteroidSpawner: public kgmGameObject
+class ASp_AsteroidSpawner: public kgmActor
 {
   KGM_OBJECT(ASp_AsteroidSpawner);
 
   kgmIGame*  game;
-  u32 m_time_prev;
+  u32        m_time_prev;
+
 public:
   ASp_AsteroidSpawner(kgmIGame* g)
   {
@@ -359,11 +360,10 @@ public:
   void update(u32 ms)
   {
     kgmGameObject::update(ms);
-    return;
 
     u32 ctick = kgmTime::getTicks();
 
-    if((ctick - m_time_prev > 5000) /*&& (m_childs.size() < 50)*/)
+    if(ctick - m_time_prev > 15000)
     {
       ASp_Asteroid* as = new ASp_Asteroid(game, 0);
       as->setId("asteroid");

@@ -37,7 +37,8 @@ KGMOBJECT_IMPLEMENT(ASp_Explode, kgmGameObject);
 KGMOBJECT_IMPLEMENT(ASp_ExplodeA, ASp_Explode);
 KGMOBJECT_IMPLEMENT(ASp_ExplodeB, ASp_Explode);
 KGMOBJECT_IMPLEMENT(ASp_ExplodeC, ASp_Explode);
-KGMOBJECT_IMPLEMENT(ASp_AsteroidSpawner, kgmGameObject);
+KGMOBJECT_IMPLEMENT(ASp_Asteroid, kgmGameObject);
+KGMOBJECT_IMPLEMENT(ASp_AsteroidSpawner, kgmActor);
 KGMOBJECT_IMPLEMENT(ASp_SpacerSpawner, kgmGameObject);
 KGMOBJECT_IMPLEMENT(ASp_Spaceship, kgmActor);
 KGMOBJECT_IMPLEMENT(ASp_SpaceshipA, ASp_Spaceship);
@@ -363,6 +364,10 @@ public:
       return new ASp_MotorA(this);
     }
     else if(t == "KAsteroidSpawner")
+    {
+      return new ASp_AsteroidSpawner(this);
+    }
+    else if(t == "ASp_AsteroidSpawner")
     {
       return new ASp_AsteroidSpawner(this);
     }
