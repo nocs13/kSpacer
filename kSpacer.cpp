@@ -226,10 +226,11 @@ public:
       m_physics->m_gravity = 1.0f;
 
     if(m_logic)
-    {
       m_logic->release();
-    }
     m_logic = new ASp_Logic(this);
+
+    if(m_render)
+      m_render->setBgColor(0xFF000000);
 
     data.sig  = 0xffff;
     data.cmap = 1;

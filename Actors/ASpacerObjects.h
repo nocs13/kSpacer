@@ -19,6 +19,40 @@ class ASp_Skybox: public kgmGameObject
 {
   KGM_OBJECT(ASp_Skybox);
 
+private:
+
+  class Stars: public kgmParticles
+  {
+
+  public:
+    Stars(u32 count, float distance)
+    {
+      m_particles = new Particle[count];
+
+      m_count      = count;
+      m_fade       = false;
+      m_fall       = false;
+      m_life       = 0xffffffff;
+      st_size      = 1.0;
+      en_size      = 1.0;
+      m_typerender = RTypePoint;
+
+      for(u32 i = 0; i < count; i++)
+      {
+        Particle* p = &m_particles[i];
+
+        p->speed = 0.0f;
+        p->scale = 1.0f;
+        p->life  = 0xffffffff;
+        float    alpha = DEGTORAD(rand()%360);
+        p->pos   = vec3(distance * cos(alpha),
+                        distance * sin(alpha),
+                        distance * sin(DEGTORAD(rand()%360)));
+        p->col.color = 0xffffffff;
+      }
+    }
+  };
+
   kgmIGame* game;
 
 public:
@@ -28,10 +62,15 @@ public:
     kgmMaterial*  mtl  = new kgmMaterial();
 
     mtl->m_type        = "simple";
-    mtl->m_shader      = kgmMaterial::ShaderNone;
-    mtl->m_2side       = true;
+    mtl->m_shader      = kgmMaterial::ShaderBase;
+    mtl->m_depth       = false;
+    //mtl->m_2side       = true;
+    mtl->m_blend       = true;
+    mtl->m_srcblend    = gcblend_one;
+    mtl->m_dstblend    = gcblend_one;
+    mtl->m_tex_color   = g->getResources()->getTexture("point_bluee.tga");
 
-    kgmMesh* mesh = new kgmMesh();
+    /*kgmMesh* mesh = new kgmMesh();
     mesh->m_rtype = kgmMesh::RT_POINT;
 
     kgmMesh::Vertex_P_C* pc = (kgmMesh::Vertex_P_C*)mesh->vAlloc(2000, kgmMesh::FVF_P_C);
@@ -45,13 +84,16 @@ public:
 
       pc[i].pos = v;
       pc[i].col = 0xffffffaa;
-    }
+    }*/
 
     m_visual = new kgmVisual();
-    m_visual->set(mesh);
-
-    mesh->release();
+    m_visual->set(mtl);
     mtl->release();
+    Stars*   s = new Stars(1000, 100);
+    m_visual->set((kgmParticles*)s);
+    s->release();
+    //m_visual->set(mesh);
+    //mesh->release();
   }
 
   ~ASp_Skybox()
@@ -586,6 +628,24 @@ public:
     particles->div_speed     = .5;
 
     particles->build();
+  }
+};
+
+class ASp_CosmicDust: public kgmGameObject
+{
+  KGM_OBJECT(ASp_CosmicDust);
+public:
+  ASp_CosmicDust(kgmIGame* g, vec3 pos, vec3 vol)
+  {
+    kgmParticles* ptl = new kgmParticles();
+    kgmMaterial*  mtl = new kgmMaterial();
+
+    m_visual = new kgmVisual();
+    m_visual->set(ptl);
+    m_visual->set(mtl);
+
+    ptl->release();
+    mtl->release();
   }
 };
 
