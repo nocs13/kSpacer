@@ -43,6 +43,7 @@ KGMOBJECT_IMPLEMENT(ASp_SpacerSpawner, kgmGameObject);
 KGMOBJECT_IMPLEMENT(ASp_Spaceship, kgmActor);
 KGMOBJECT_IMPLEMENT(ASp_SpaceshipA, ASp_Spaceship);
 KGMOBJECT_IMPLEMENT(ASp_SpaceshipB, ASp_SpaceshipA);
+KGMOBJECT_IMPLEMENT(ASp_CosmicDust, kgmGameObject);
 
 kgmString g_loc_dir;
 bool g_ms_camera = false;
@@ -399,6 +400,10 @@ public:
     else if(t == "KFlameA")
     {
       return new ASp_FlameA(this);
+    }
+    else if(t == "ASp_CosmicDust")
+    {
+      return new ASp_CosmicDust(this);
     }
 
     return kgmGameBase::gObject(t);

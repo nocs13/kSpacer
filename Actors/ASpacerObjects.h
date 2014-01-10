@@ -439,6 +439,7 @@ class ASp_Flame: public kgmGameObject
 protected:
   kgmParticles* particles;
   kgmMaterial*  material;
+
 public:
   ASp_Flame(kgmIGame* g)
   {
@@ -635,10 +636,26 @@ class ASp_CosmicDust: public kgmGameObject
 {
   KGM_OBJECT(ASp_CosmicDust);
 public:
-  ASp_CosmicDust(kgmIGame* g, vec3 pos, vec3 vol)
+  ASp_CosmicDust(kgmIGame* g)
   {
     kgmParticles* ptl = new kgmParticles();
     kgmMaterial*  mtl = new kgmMaterial();
+
+    mtl->m_blend        = true;
+    mtl->m_srcblend     = gcblend_one;
+    mtl->m_dstblend     = gcblend_one;
+    mtl->m_shader       = kgmMaterial::ShaderBlend;
+    mtl->m_tex_color    = g->getResources()->getTexture("point_yellow.tga");
+
+    ptl->m_loop  = true;
+    ptl->m_speed = .1;
+    ptl->m_count = 100;
+    ptl->m_life  = 1000;
+    ptl->div_life  = .5;
+    ptl->div_speed = .5;
+    ptl->st_size   = .1;
+    ptl->en_size   = .9;
+    ptl->build();
 
     m_visual = new kgmVisual();
     m_visual->set(ptl);
