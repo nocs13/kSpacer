@@ -81,7 +81,7 @@ class ASp_Gui: public kgmGui
       setText("main map");
       setRect(0, 20, 200, 200);
       setAlpha(true);
-      setColor(0x55966804);
+      setColor(0x55966822);
       useStyle(false);
       show();
     }

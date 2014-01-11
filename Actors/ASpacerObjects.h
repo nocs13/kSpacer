@@ -641,6 +641,7 @@ public:
     kgmParticles* ptl = new kgmParticles();
     kgmMaterial*  mtl = new kgmMaterial();
 
+    mtl->m_depth        = false;
     mtl->m_blend        = true;
     mtl->m_srcblend     = gcblend_one;
     mtl->m_dstblend     = gcblend_one;
@@ -648,13 +649,15 @@ public:
     mtl->m_tex_color    = g->getResources()->getTexture("point_yellow.tga");
 
     ptl->m_loop  = true;
-    ptl->m_speed = .1;
+    ptl->m_speed = .01;
     ptl->m_count = 100;
-    ptl->m_life  = 1000;
-    ptl->div_life  = .5;
-    ptl->div_speed = .5;
-    ptl->st_size   = .1;
-    ptl->en_size   = .9;
+    ptl->m_life  = 150000;
+    ptl->div_life  = .25;
+    ptl->div_speed = .25;
+    ptl->st_size   = .5;
+    ptl->en_size   = .8;
+    ptl->volume = vec3(25, 25, 25);
+    ptl->m_typerender = kgmParticles::RTypePoint;
     ptl->build();
 
     m_visual = new kgmVisual();
