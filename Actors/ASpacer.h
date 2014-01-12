@@ -40,7 +40,7 @@ public:
 
     gui   = new ASp_Gui(game);
 
-    m_health = 10000;
+    m_health = 100;
     setId("MainPlayer");
 
     m_gameplayer = true;

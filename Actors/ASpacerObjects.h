@@ -62,9 +62,9 @@ public:
     kgmMaterial*  mtl  = new kgmMaterial();
 
     mtl->m_type        = "simple";
-    mtl->m_shader      = kgmMaterial::ShaderBase;
+    mtl->m_shader      = kgmMaterial::ShaderBlend;
     mtl->m_depth       = false;
-    //mtl->m_2side       = true;
+    mtl->m_2side       = true;
     mtl->m_blend       = true;
     mtl->m_srcblend    = gcblend_one;
     mtl->m_dstblend    = gcblend_one;
