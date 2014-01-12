@@ -35,7 +35,7 @@ private:
       m_life       = 0xffffffff;
       st_size      = 1.0;
       en_size      = 1.0;
-      m_typerender = RTypePoint;
+      //m_typerender = RTypePoint;
 
       for(u32 i = 0; i < count; i++)
       {
@@ -641,6 +641,7 @@ public:
     kgmParticles* ptl = new kgmParticles();
     kgmMaterial*  mtl = new kgmMaterial();
 
+    //mtl->m_2side        = true;
     mtl->m_depth        = false;
     mtl->m_blend        = true;
     mtl->m_srcblend     = gcblend_one;
@@ -657,7 +658,7 @@ public:
     ptl->st_size   = .5;
     ptl->en_size   = .8;
     ptl->volume = vec3(25, 25, 25);
-    ptl->m_typerender = kgmParticles::RTypePoint;
+    //ptl->m_typerender = kgmParticles::RTypePoint;
     ptl->build();
 
     m_visual = new kgmVisual();
