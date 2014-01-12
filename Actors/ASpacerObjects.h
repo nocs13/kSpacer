@@ -29,12 +29,14 @@ private:
     {
       m_particles = new Particle[count];
 
+      float scale = 1 / (1 + rand()%10);
+
       m_count      = count;
       m_fade       = false;
       m_fall       = false;
       m_life       = 0xffffffff;
-      st_size      = 1.0;
-      en_size      = 1.0;
+      st_size      = 0.3;
+      en_size      = 0.5;
       //m_typerender = RTypePoint;
 
       for(u32 i = 0; i < count; i++)
@@ -42,7 +44,7 @@ private:
         Particle* p = &m_particles[i];
 
         p->speed = 0.0f;
-        p->scale = 1.0f;
+        p->scale = 0.2 + 1 / (1 + rand()%10);
         p->life  = 0xffffffff;
         float    alpha = DEGTORAD(rand()%360);
         p->pos   = vec3(distance * cos(alpha),
@@ -347,7 +349,8 @@ public:
 
     mtl = new kgmMaterial();
     mtl->m_shader = kgmMaterial::ShaderBase;
-    mtl->m_tex_color = g->getResources()->getTexture("asteroid_0.tga");
+    mtl->m_tex_color = g->getResources()->getTexture("kasteroid_o2.col.tga");
+    mtl->m_tex_normal = g->getResources()->getTexture("kasteroid_o2.nor.tga");
 
     m_visual->set(msh);
     m_visual->set(mtl);
