@@ -231,7 +231,8 @@ public:
     m_logic = new ASp_Logic(this);
 
     if(m_render)
-      m_render->setBgColor(0xFF0077AA);
+     // m_render->setBgColor(0xFF0077AA);
+      m_render->setBgColor(0xFF000000);
 
     data.sig  = 0xffff;
     data.cmap = 1;

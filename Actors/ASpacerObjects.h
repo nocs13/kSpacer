@@ -25,7 +25,7 @@ private:
   {
 
   public:
-    Stars(u32 count, float distance)
+    Stars(u32 count, float distance, float size = 1.0)
     {
       m_particles = new Particle[count];
 
@@ -35,16 +35,15 @@ private:
       m_fade       = false;
       m_fall       = false;
       m_life       = 0xffffffff;
-      st_size      = 0.3;
-      en_size      = 0.5;
-      //m_typerender = RTypePoint;
+      st_size      = size;
+      en_size      = size;
 
       for(u32 i = 0; i < count; i++)
       {
         Particle* p = &m_particles[i];
 
         p->speed = 0.0f;
-        p->scale = 0.2 + 1 / (1 + rand()%10);
+        p->scale = 0.1 + size / (1 + rand()%10);
         p->life  = 0xffffffff;
         float    alpha = DEGTORAD(rand()%360);
         p->pos   = vec3(distance * cos(alpha),
@@ -55,7 +54,8 @@ private:
     }
   };
 
-  kgmIGame* game;
+  kgmIGame*  game;
+  kgmVisual* visual;
 
 public:
   ASp_Skybox(kgmIGame* g)
@@ -66,41 +66,42 @@ public:
     mtl->m_type        = "simple";
     mtl->m_shader      = kgmMaterial::ShaderBlend;
     mtl->m_depth       = false;
-    mtl->m_2side       = true;
     mtl->m_blend       = true;
     mtl->m_srcblend    = gcblend_one;
     mtl->m_dstblend    = gcblend_one;
     mtl->m_tex_color   = g->getResources()->getTexture("point_bluee.tga");
 
-    /*kgmMesh* mesh = new kgmMesh();
-    mesh->m_rtype = kgmMesh::RT_POINT;
-
-    kgmMesh::Vertex_P_C* pc = (kgmMesh::Vertex_P_C*)mesh->vAlloc(2000, kgmMesh::FVF_P_C);
-
-    for(int i = 0; i < 1000; i++)
-    {
-      vec3 v(pow(-1.0, rand()%2) * rand(), pow(-1.0, rand()%2) * rand(), pow(-1.0, rand()%2) * rand());
-      v.normalize();
-      v = v * 10;
-      v.z *= 0.41;
-
-      pc[i].pos = v;
-      pc[i].col = 0xffffffaa;
-    }*/
-
     m_visual = new kgmVisual();
     m_visual->set(mtl);
     mtl->release();
-    Stars*   s = new Stars(1000, 100);
+
+    Stars*   s = new Stars(2000, 300, 1);
     m_visual->set((kgmParticles*)s);
     s->release();
-    //m_visual->set(mesh);
-    //mesh->release();
+
+    /*visual = new kgmVisual();
+    s = new Stars(500, 100, 10.0);
+    visual->set((kgmParticles*)s);
+    s->release();
+
+    mtl                = new kgmMaterial();
+    mtl->m_type        = "simple";
+    mtl->m_shader      = kgmMaterial::ShaderBlend;
+    mtl->m_depth       = false;
+    mtl->m_blend       = true;
+    mtl->m_srcblend    = gcblend_one;
+    mtl->m_dstblend    = gcblend_one;
+    mtl->m_tex_color   = g->getResources()->getTexture("skymap.tga");
+    visual->set(mtl);
+    mtl->release();
+
+    ((kgmGameBase*)g)->m_render->add(visual);*/
   }
 
   ~ASp_Skybox()
   {
-
+    //visual->remove();
+    //visual->release();
   }
 
   virtual void update(u32 ms)
@@ -644,8 +645,7 @@ public:
     kgmParticles* ptl = new kgmParticles();
     kgmMaterial*  mtl = new kgmMaterial();
 
-    //mtl->m_2side        = true;
-    mtl->m_depth        = false;
+    mtl->m_depth        = true;
     mtl->m_blend        = true;
     mtl->m_srcblend     = gcblend_one;
     mtl->m_dstblend     = gcblend_one;
@@ -661,12 +661,11 @@ public:
     ptl->st_size   = .5;
     ptl->en_size   = .8;
     ptl->volume = vec3(25, 25, 25);
-    //ptl->m_typerender = kgmParticles::RTypePoint;
     ptl->build();
 
-    m_visual = new kgmVisual();
-    m_visual->set(ptl);
-    m_visual->set(mtl);
+    //m_visual = new kgmVisual();
+    //m_visual->set(ptl);
+   // m_visual->set(mtl);
 
     ptl->release();
     mtl->release();
