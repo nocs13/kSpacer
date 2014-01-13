@@ -60,6 +60,10 @@ public:
       game->gAppend(sb);
       sb->release();
 
+      ASp_SkyboxB* sbb = new ASp_SkyboxB(game);
+      game->gAppend(sbb);
+      sbb->release();
+
       setGroup(0);
       gui->set(this);
       gui->add(this);

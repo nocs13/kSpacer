@@ -25,6 +25,7 @@ KGMOBJECT_IMPLEMENT(ASp_SpacerA, ASp_Spacer);
 KGMOBJECT_IMPLEMENT(ASp_SpacerB, ASp_SpacerA);
 KGMOBJECT_IMPLEMENT(ASp_Result, kgmGameObject);
 KGMOBJECT_IMPLEMENT(ASp_Skybox, kgmGameObject);
+KGMOBJECT_IMPLEMENT(ASp_SkyboxB, kgmGameObject);
 KGMOBJECT_IMPLEMENT(ASp_MotorA, kgmGameObject);
 KGMOBJECT_IMPLEMENT(ASp_Laser, kgmGameObject);
 KGMOBJECT_IMPLEMENT(ASp_LaserA, ASp_Laser);
@@ -231,8 +232,8 @@ public:
     m_logic = new ASp_Logic(this);
 
     if(m_render)
-     // m_render->setBgColor(0xFF0077AA);
-      m_render->setBgColor(0xFF000000);
+      m_render->setBgColor(0xFF0077AA);
+      //m_render->setBgColor(0xFF000000);
 
     data.sig  = 0xffff;
     data.cmap = 1;

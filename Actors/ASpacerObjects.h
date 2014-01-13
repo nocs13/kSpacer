@@ -29,7 +29,7 @@ private:
     {
       m_particles = new Particle[count];
 
-      float scale = 1 / (1 + rand()%10);
+      float scale = size / (1.0f + rand()%10);
 
       m_count      = count;
       m_fade       = false;
@@ -43,7 +43,7 @@ private:
         Particle* p = &m_particles[i];
 
         p->speed = 0.0f;
-        p->scale = 0.1 + size / (1 + rand()%10);
+        p->scale = 0.1 + size / (1.0 + rand()%10);
         p->life  = 0xffffffff;
         float    alpha = DEGTORAD(rand()%360);
         p->pos   = vec3(distance * cos(alpha),
@@ -52,10 +52,11 @@ private:
         p->col.color = 0xffffffff;
       }
     }
+
+    void update(u32 ms){}
   };
 
   kgmIGame*  game;
-  kgmVisual* visual;
 
 public:
   ASp_Skybox(kgmIGame* g)
@@ -70,38 +71,19 @@ public:
     mtl->m_srcblend    = gcblend_one;
     mtl->m_dstblend    = gcblend_one;
     mtl->m_tex_color   = g->getResources()->getTexture("point_bluee.tga");
+//    mtl->m_tex_color   = g->getResources()->getTexture("skymap.tga");
 
     m_visual = new kgmVisual();
     m_visual->set(mtl);
     mtl->release();
 
-    Stars*   s = new Stars(2000, 300, 1);
+    Stars*   s = new Stars(500, 100, 1);
     m_visual->set((kgmParticles*)s);
     s->release();
-
-    /*visual = new kgmVisual();
-    s = new Stars(500, 100, 10.0);
-    visual->set((kgmParticles*)s);
-    s->release();
-
-    mtl                = new kgmMaterial();
-    mtl->m_type        = "simple";
-    mtl->m_shader      = kgmMaterial::ShaderBlend;
-    mtl->m_depth       = false;
-    mtl->m_blend       = true;
-    mtl->m_srcblend    = gcblend_one;
-    mtl->m_dstblend    = gcblend_one;
-    mtl->m_tex_color   = g->getResources()->getTexture("skymap.tga");
-    visual->set(mtl);
-    mtl->release();
-
-    ((kgmGameBase*)g)->m_render->add(visual);*/
   }
 
   ~ASp_Skybox()
   {
-    //visual->remove();
-    //visual->release();
   }
 
   virtual void update(u32 ms)
@@ -115,6 +97,88 @@ public:
 
       msc.scale(80, 80, 80);
       m.translate(cam.mPos);
+      m_visual->m_transform = msc * m;
+    }
+  }
+};
+
+class ASp_SkyboxB: public kgmGameObject
+{
+  KGM_OBJECT(ASp_SkyboxB);
+
+private:
+  kgmIGame*  game;
+
+public:
+  ASp_SkyboxB(kgmIGame* g)
+  {
+    game = g;
+    kgmMaterial*  mtl  = new kgmMaterial();
+
+    mtl->m_type        = "simple";
+    mtl->m_shader      = kgmMaterial::ShaderBlend;
+    //mtl->m_depth       = false;
+    mtl->m_2side       = true;
+    //mtl->m_blend       = true;
+    mtl->m_srcblend    = gcblend_one;
+    mtl->m_dstblend    = gcblend_one;
+//    mtl->m_tex_color   = g->getResources()->getTexture("skymap.tga");
+    mtl->m_tex_color   = g->getResources()->getTexture("point_bluee.tga");
+
+    m_visual = new kgmVisual();
+    m_visual->set(mtl);
+    mtl->release();
+
+    kgmMesh* mesh = new kgmMesh();
+
+    kgmMesh::Vertex_P_C_T* pc = (kgmMesh::Vertex_P_C_T*)mesh->vAlloc(8,  kgmMesh::FVF_P_C_T);
+    kgmMesh::Face_16*      fc = (kgmMesh::Face_16*)mesh->fAlloc(12, kgmMesh::FFF_16);
+
+    float size = 10.0;
+
+    pc[0].pos = vec3(-size, -size, -size), pc[0].col = 0xffffffff, pc[0].uv = vec2(0,0);
+    pc[1].pos = vec3( size, -size, -size), pc[0].col = 0xff55ffff, pc[0].uv = vec2(1,0);
+    pc[2].pos = vec3(-size,  size, -size), pc[0].col = 0xffffffff, pc[0].uv = vec2(0,1);
+    pc[3].pos = vec3( size,  size, -size), pc[0].col = 0xff00ffff, pc[0].uv = vec2(1,1);
+    pc[4].pos = vec3(-size, -size,  size), pc[0].col = 0xffffffff, pc[0].uv = vec2(0,0);
+    pc[5].pos = vec3( size, -size,  size), pc[0].col = 0xffff00ff, pc[0].uv = vec2(1,0);
+    pc[6].pos = vec3(-size,  size,  size), pc[0].col = 0xff88ffff, pc[0].uv = vec2(0,1);
+    pc[7].pos = vec3( size,  size,  size), pc[0].col = 0xffffffff, pc[0].uv = vec2(1,1);
+
+    fc[0].a = 0, fc[0].b = 2, fc[0].c = 1;
+     fc[1].a = 3, fc[1].b = 1, fc[1].c = 2;
+    fc[2].a = 4, fc[2].b = 6, fc[2].c = 5;
+     fc[3].a = 7, fc[3].b = 5, fc[3].c = 6;
+    fc[4].a = 0, fc[4].b = 1, fc[4].c = 5;
+     fc[5].a = 0, fc[5].b = 4, fc[5].c = 5;
+    fc[6].a = 1, fc[6].b = 2, fc[6].c = 6;
+     fc[7].a = 1, fc[7].b = 5, fc[7].c = 6;
+    fc[8].a = 2, fc[8].b = 3, fc[8].c = 7;
+     fc[9].a = 2, fc[9].b = 6, fc[9].c = 7;
+    fc[10].a = 3, fc[10].b = 0, fc[10].c = 4;
+     fc[11].a = 3, fc[11].b = 7, fc[11].c = 4;
+
+    m_visual->set(mesh);
+    mesh->release();
+  }
+
+  ~ASp_SkyboxB()
+  {
+  }
+
+  virtual void update(u32 ms)
+  {
+    kgmGameObject::update(ms);
+
+    if(game)
+    {
+      kgmCamera& cam = ((kgmGameBase*)game)->m_render->camera();
+      mtx4 m, msc;
+
+      m.identity();
+      msc.identity();
+      msc.scale(1, 1, 1);
+      //m.translate(cam.mPos);
       m_visual->m_transform = msc * m;
     }
   }
