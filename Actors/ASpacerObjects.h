@@ -691,27 +691,27 @@ public:
     kgmParticles* ptl = new kgmParticles();
     kgmMaterial*  mtl = new kgmMaterial();
 
-    mtl->m_depth        = true;
+    mtl->m_depth        = false;
     mtl->m_blend        = true;
-    mtl->m_srcblend     = gcblend_one;
-    mtl->m_dstblend     = gcblend_one;
+    mtl->m_srcblend     = gcblend_srcalpha;
+    mtl->m_dstblend     = gcblend_srcialpha;
     mtl->m_shader       = kgmMaterial::ShaderBlend;
-    mtl->m_tex_color    = g->getResources()->getTexture("point_yellow.tga");
+    mtl->m_tex_color    = g->getResources()->getTexture("smoketex.tga");
 
-    ptl->m_loop  = true;
-    ptl->m_speed = .01;
-    ptl->m_count = 100;
-    ptl->m_life  = 150000;
+    ptl->m_loop    = true;
+    ptl->m_speed   = .01;
+    ptl->m_count   = 10;
+    ptl->m_life    = 150000;
     ptl->div_life  = .25;
     ptl->div_speed = .25;
-    ptl->st_size   = .5;
-    ptl->en_size   = .8;
-    ptl->volume = vec3(25, 25, 25);
+    ptl->st_size   = 2;
+    ptl->en_size   = 3;
+    ptl->volume    = vec3(5, 5, 5);
     ptl->build();
 
-    //m_visual = new kgmVisual();
-    //m_visual->set(ptl);
-   // m_visual->set(mtl);
+    m_visual = new kgmVisual();
+    m_visual->set(ptl);
+    m_visual->set(mtl);
 
     ptl->release();
     mtl->release();
