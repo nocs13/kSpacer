@@ -38,22 +38,29 @@ private:
       st_size      = size;
       en_size      = size;
 
+      u32 colors[6] = {KGM_RGBA(200, 200, 255, 255), KGM_RGBA(0xfc, 0xff, 0xd2, 255),
+                       KGM_RGBA(200, 200, 255, 255), KGM_RGBA(200, 200, 255, 255),
+                       KGM_RGBA(0xff, 0xdf, 0xde, 255), KGM_RGBA(200, 200, 255, 255)};
+
       for(u32 i = 0; i < count; i++)
       {
         Particle* p = &m_particles[i];
 
         p->speed = 0.0f;
-        p->scale = 0.1 + size / (1.0 + rand()%10);
+        p->scale = 0.5 + size / (1.0 + rand()%10);
+        //p->scale = 1.0 ;
         p->life  = 0xffffffff;
         float    alpha = DEGTORAD(rand()%360);
         p->pos   = vec3(distance * cos(alpha),
                         distance * sin(alpha),
                         0.5f * distance * sin(DEGTORAD(rand()%360)));
-        p->col.color = 0xffffffff;
+        p->col.color = colors[rand() % 6];
       }
     }
 
-    void update(u32 ms){}
+    void update(u32 ms)
+    {
+    }
   };
 
   kgmIGame*  game;
@@ -70,7 +77,8 @@ public:
     mtl->m_blend       = true;
     mtl->m_srcblend    = gcblend_one;
     mtl->m_dstblend    = gcblend_one;
-    mtl->m_tex_color   = g->getResources()->getTexture("point_bluee.tga");
+    //mtl->m_tex_color   = g->getResources()->getTexture("point_bluee.tga");
+    mtl->m_tex_color   = g->getResources()->getTexture("star.tga");
 
     m_visual = new kgmVisual();
     m_visual->set(mtl);
@@ -696,7 +704,8 @@ public:
     mtl->m_srcblend     = gcblend_srcalpha;
     mtl->m_dstblend     = gcblend_srcialpha;
     mtl->m_shader       = kgmMaterial::ShaderBlend;
-    mtl->m_tex_color    = g->getResources()->getTexture("smoketex.tga");
+    //mtl->m_tex_color    = g->getResources()->getTexture("smoketex.tga");
+    mtl->m_tex_color    = g->getResources()->getTexture("smoketex_red.tga");
 
     ptl->m_loop    = true;
     ptl->m_speed   = .01;

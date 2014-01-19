@@ -443,4 +443,52 @@ public:
     m_health = 25;
   }
 };
+
+class ASp_SpacerC: public ASp_SpacerA
+{
+  KGM_OBJECT(ASp_SpacerC);
+
+  kgmGameObject*  target;
+
+public:
+  ASp_SpacerC(kgmIGame* g)
+  :ASp_SpacerA(g)
+  {
+    target = null;
+    m_body->m_velocity = speed_min;
+    m_health = 45;
+  }
+};
+
+class ASp_SpacerD: public ASp_SpacerA
+{
+  KGM_OBJECT(ASp_SpacerD);
+
+  kgmGameObject*  target;
+
+public:
+  ASp_SpacerD(kgmIGame* g)
+  :ASp_SpacerA(g)
+  {
+    target = null;
+    m_body->m_velocity = speed_min;
+    m_health = 55;
+  }
+};
+
+class ASp_SpacerE: public ASp_SpacerA
+{
+  KGM_OBJECT(ASp_SpacerE);
+
+  kgmGameObject*  target;
+
+public:
+  ASp_SpacerE(kgmIGame* g)
+  :ASp_SpacerA(g)
+  {
+    target = null;
+    m_body->m_velocity = speed_min;
+    m_health = 75;
+  }
+};
 #endif // ASP_SPACER_H

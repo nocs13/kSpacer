@@ -23,6 +23,9 @@ KGMOBJECT_IMPLEMENT(ASp_GunFA, ASp_Gun);
 KGMOBJECT_IMPLEMENT(ASp_Spacer, kgmActor);
 KGMOBJECT_IMPLEMENT(ASp_SpacerA, ASp_Spacer);
 KGMOBJECT_IMPLEMENT(ASp_SpacerB, ASp_SpacerA);
+KGMOBJECT_IMPLEMENT(ASp_SpacerC, ASp_SpacerA);
+KGMOBJECT_IMPLEMENT(ASp_SpacerD, ASp_SpacerA);
+KGMOBJECT_IMPLEMENT(ASp_SpacerE, ASp_SpacerA);
 KGMOBJECT_IMPLEMENT(ASp_Result, kgmGameObject);
 KGMOBJECT_IMPLEMENT(ASp_Skybox, kgmGameObject);
 KGMOBJECT_IMPLEMENT(ASp_SkyboxB, kgmGameObject);
@@ -49,7 +52,7 @@ KGMOBJECT_IMPLEMENT(ASp_CosmicDust, kgmGameObject);
 kgmString g_loc_dir;
 bool g_ms_camera = false;
 s8   g_map_current = 0;
-s8   g_maps_count  = 5;
+s8   g_maps_count  = 7;
 s8   g_maps_unlock = 1;
 
 const char* g_maps[] =
@@ -61,7 +64,9 @@ const char* g_maps[] =
   "Mission 2", "map002.kgm",
   "Mission 3", "map003.kgm",
   "Mission 4", "map004.kgm",
-  "Mission 5", "map004.kgm",
+  "Mission 5", "map005.kgm",
+  "Mission 6", "map006.kgm",
+  "Mission 7", "map007.kgm",
 };
 
 kgmString kgame_get_map_by_id(s32 i)
@@ -386,6 +391,18 @@ public:
     else if(t == "KSpacerB")
     {
       return new ASp_SpacerB(this);
+    }
+    else if(t == "KSpacerC")
+    {
+      return new ASp_SpacerC(this);
+    }
+    else if(t == "KSpacerD")
+    {
+      return new ASp_SpacerD(this);
+    }
+    else if(t == "KSpacerE")
+    {
+      return new ASp_SpacerE(this);
     }
     else if(t == "KSpaceshipA")
     {
