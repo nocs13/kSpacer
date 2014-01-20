@@ -446,15 +446,14 @@ class ASp_AsteroidSpawner: public kgmActor
 
   kgmIGame*  game;
   u32        m_time_prev;
+  u32        m_interval;
 
 public:
   ASp_AsteroidSpawner(kgmIGame* g)
   {
     game        = g;
     m_time_prev = kgmTime::getTicks();
-
-    m_body            = new kgmBody;
-    m_body->m_gravity = false;
+    m_interval  = 10000 + rand() % 10000;
   }
 
   void update(u32 ms)
@@ -463,13 +462,13 @@ public:
 
     u32 ctick = kgmTime::getTicks();
 
-    if(ctick - m_time_prev > 15000)
+    if(ctick - m_time_prev > m_interval)
     {
       ASp_Asteroid* as = new ASp_Asteroid(game, 0);
       as->setId("asteroid");
 
       as->timeout(10000 + rand() % 10000);
-      as->setPosition(m_body->m_position);
+      as->setPosition(m_position);
       as->setParent(this);
       game->gAppend(as);
       as->release();
@@ -717,6 +716,13 @@ public:
     ptl->en_size   = 3;
     ptl->volume    = vec3(5, 5, 5);
     ptl->build();
+
+    //u32 color = KGM_RGBA(0xff, 0xff, 0xff, 155 + rand() % 100);
+
+    for (u32 i = 0; i < ptl->m_count; i++)
+    {
+      ptl->m_particles[i].col.color = KGM_RGBA(0xff, 0xff, 0xff, 155 + rand() % 100);
+    }
 
     m_visual = new kgmVisual();
     m_visual->set(ptl);
