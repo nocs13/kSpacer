@@ -57,7 +57,7 @@ s8   g_maps_unlock = 1;
 
 const char* g_maps[] =
 {
-#ifdef TEST
+#ifdef DEBUG
   "map test0", "map000.kgm",
 #endif
   "Mission 1", "map001.kgm",
@@ -580,7 +580,7 @@ JNIEXPORT void  JNICALL Java_com_example_kSpacer_kSpacerLib_onTouch(JNIEnv * env
 JNIEXPORT void JNICALL Java_com_example_kSpacer_kSpacerLib_init(JNIEnv* env, jobject obj,  jint width, jint height, jobject am,
                                                           jobject surface)
 {
-#ifdef TEST
+#ifdef DEBUG
   kgm_log() << "Java_com_example_kSpacer_kSpacerLib_init\n";
 #endif
 
@@ -599,7 +599,7 @@ JNIEXPORT void JNICALL Java_com_example_kSpacer_kSpacerLib_init(JNIEnv* env, job
 
 JNIEXPORT void JNICALL Java_com_example_kSpacer_kSpacerLib_quit(JNIEnv * env, jobject obj)
 {
-#ifdef TEST
+#ifdef DEBUG
   kgm_log() << "Java_com_example_kSpacer_kSpacerLib_quit \n";
 #endif
 
@@ -608,7 +608,7 @@ JNIEXPORT void JNICALL Java_com_example_kSpacer_kSpacerLib_quit(JNIEnv * env, jo
 
 JNIEXPORT void JNICALL Java_com_example_kSpacer_kSpacerLib_idle(JNIEnv * env, jobject obj)
 {
-#ifdef TEST
+#ifdef DEBUG
   kgm_log() << "Java_com_example_kSpacer_kSpacerLib_idle \n";
 #endif
 
@@ -617,7 +617,7 @@ JNIEXPORT void JNICALL Java_com_example_kSpacer_kSpacerLib_idle(JNIEnv * env, jo
 
 JNIEXPORT void JNICALL Java_com_example_kSpacer_kSpacerLib_onKeyboard(JNIEnv * env, jobject obj, jint a, jint key)
 {
-#ifdef TEST
+#ifdef DEBUG
   kgm_log() << "Java_com_example_kSpacer_kSpacerLib_onKeyboard \n";
 #endif
 
@@ -626,7 +626,7 @@ JNIEXPORT void JNICALL Java_com_example_kSpacer_kSpacerLib_onKeyboard(JNIEnv * e
 
 JNIEXPORT void JNICALL Java_com_example_kSpacer_kSpacerLib_onTouch(JNIEnv * env, jobject obj, jint a, jint x, jint y)
 {
-#ifdef TEST
+#ifdef DEBUG
   kgm_log() << "Java_com_example_kSpacer_kSpacerLib_onTouch \n";
 #endif
 

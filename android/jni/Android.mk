@@ -35,7 +35,7 @@ include $(CLEAR_VARS)
 #        LOCAL_CFLAGS    += -g
 	LOCAL_CFLAGS    += -DGLES_2
 #	LOCAL_CFLAGS    += -DGLES_1
-#        LOCAL_CFLAGS    += -DTEST
+#        LOCAL_CFLAGS    += -DDEBUG
         LOCAL_CFLAGS    += -frtti
 include $(BUILD_SHARED_LIBRARY)
 
