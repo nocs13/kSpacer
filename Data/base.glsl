@@ -27,7 +27,6 @@ void main(void)
                      g_mTran[2][0], g_mTran[2][1], g_mTran[2][2]);
    V = vec4(g_mTran * vec4(g_Vertex, 1.0)).xyz;
    N = normalize(mRot * g_Normal);
-   //N = g_Normal;
    I = g_vLight.w;
    L = g_vLight.xyz;
 
@@ -56,17 +55,18 @@ void main( void )
 
  normal = (2.0 * normal) - 1.0;
  normal.xyz = normal.xyz + N;
- //normal.xyz = N;
  normal.xyz = normalize(normal.xyz);
 
  vec3 vL = normalize(L - V);
+ vec3 Y  = normalize(g_vEyeDir);
 
  float intensity  = 1.0;
        intensity  = max(dot(normal.xyz, normalize(vL)), 0.0);// * Lforse;
        intensity  = clamp(intensity, 0.3, 0.7);
-       //intensity  = max(dot(normal.xyz, L), 0.0);
+ vec3  reflection = normalize(normal.xyz * 2.0 * intensity - vL);
+ float ispecular  = pow(clamp(dot(reflection, Y), 0, 1), 2.0f);
 
- vec4  col = vec4(color.xyz * intensity, color.w) + vec4(specular.xyz, 0);
+ vec4  col = vec4(color.xyz * intensity, color.w) + vec4(specular.xyz * ispecular, 0);
 
  col = clamp(col, 0.1, 1.0);
 
