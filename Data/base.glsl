@@ -1,4 +1,3 @@
-//#version 120
 uniform mat4   g_mView;
 uniform mat4   g_mProj;
 uniform mat4   g_mTran;
@@ -31,11 +30,14 @@ void main(void)
    L = g_vLight.xyz;
 
    gl_Position   = g_mProj * g_mView * vec4(V, 1.0);
-   gl_FrontColor = g_Color;
    Texcoord      = g_Texcoord;
 }
 
 //Fragment Shader
+#ifdef GL_ES
+precision highp float;
+#endif
+
 uniform sampler2D g_txColor;
 uniform sampler2D g_txNormal;
 uniform sampler2D g_txSpecular;
@@ -57,18 +59,21 @@ void main( void )
  normal.xyz = normal.xyz + N;
  normal.xyz = normalize(normal.xyz);
 
+ vec3 vN = normalize(normal.xyz);
  vec3 vL = normalize(L - V);
- vec3 Y  = normalize(g_vEyeDir);
+ vec3 Y  = normalize(-g_vEyeDir);
 
+ float distance = length(L - V);
  float intensity  = 1.0;
-       intensity  = max(dot(normal.xyz, normalize(vL)), 0.0);// * Lforse;
-       intensity  = clamp(intensity, 0.3, 0.7);
+       intensity  = max(dot(normal.xyz, normalize(vL)), 0.0) / (1.0 + 0.1 * distance);
+       intensity  = clamp(intensity, 0.2, 0.7);
  vec3  reflection = normalize(normal.xyz * 2.0 * intensity - vL);
- float ispecular  = pow(clamp(dot(reflection, Y), 0, 1), 2.0f);
+ //float ispecular  = pow(clamp(dot(reflection, Y), 0, 1), 10);
+ float ispecular  = pow(clamp(dot(vL, vN), 0.0, 1.0), 100.0);
 
  vec4  col = vec4(color.xyz * intensity, color.w) + vec4(specular.xyz * ispecular, 0);
 
  col = clamp(col, 0.1, 1.0);
 
- gl_FragColor = gl_Color * col;
+ gl_FragColor = col;
 }

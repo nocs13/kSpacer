@@ -1,4 +1,3 @@
-#version 120
 uniform mat4   g_mView;
 uniform mat4   g_mProj;
 uniform mat4   g_mTran;
@@ -19,6 +18,10 @@ void main(void)
 }
 
 //Fragment Shader
+#ifdef GL_ES
+precision highp float;
+#endif
+
 uniform sampler2D g_txColor;
 
 varying   vec4 vColor;

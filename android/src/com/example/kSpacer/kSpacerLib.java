@@ -36,6 +36,7 @@ public class kSpacerLib {
      public static native void    init(int width, int height, Object asset, Object surface);
      public static native void    idle();
      public static native void    quit();
-     public static native void    onTouch(int a, int x, int y);   
-     public static native void    onKeyboard(int a, int k);   
+     public static native void    onTouch(int a, int x, int y);
+     public static native void    onKeyboard(int a, int k);
+     public static native void    onGyroscope(float x, float y, float z);
 }

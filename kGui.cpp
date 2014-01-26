@@ -31,7 +31,7 @@ kGui::kGui(kgmGameBase* game)
   text = "Game";
   btn->setSid("game");
   btn->setText(text);
-  btn = new kgmGuiButton(gui, w/3, 0, w/3, 50);
+  btn = new kgmGuiButton(gui, w/3, 0, w/3+1, 50);
   text = "Credits";
   btn->setSid("credits");
   btn->setText(text);

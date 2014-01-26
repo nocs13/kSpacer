@@ -26,3 +26,4 @@ Data/default.glsl
 Data/base.glsl
 Data/none.glsl
 Data/light.glsl
+Data/blend.glsl

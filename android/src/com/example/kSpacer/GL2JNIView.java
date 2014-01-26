@@ -76,12 +76,13 @@ class GL2JNIView extends GLSurfaceView {
     public static Context ctx = null;
     public static Surface srf = null;
 
+    public static final int EVT_NONE    = 0xf0;
     public static final int EVT_KEYUP   = 0xf1;
     public static final int EVT_KEYDOWN = 0xf2;
     public static final int EVT_TOUCH   = 0xf3;
     public static boolean   isGL     = false;
     public static boolean   isEvt    = false;
-    public static int        evtId   = 0;
+    public static int        evtId   = EVT_NONE;
     public static int        evtKey  = 0;
     public static int        evtX    = 0;
     public static int        evtY    = 0;
@@ -378,7 +379,7 @@ class GL2JNIView extends GLSurfaceView {
 
             kSpacerLib.idle();
 
-            if(GL2JNIView.isEvt)
+            //if(GL2JNIView.isEvt)
             {
             	switch(GL2JNIView.evtId)
             	{
@@ -394,6 +395,7 @@ class GL2JNIView extends GLSurfaceView {
             	}
 
             	GL2JNIView.isEvt = false;
+                GL2JNIView.evtId = EVT_NONE;
             }
         }
 

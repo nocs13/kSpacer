@@ -15,6 +15,10 @@
  */
 package com.example.kSpacer;
 
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorManager;
+import android.hardware.SensorEventListener;
 import android.app.Activity;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
@@ -26,12 +30,20 @@ import android.opengl.GLSurfaceView;
 import android.os.Bundle;
 import android.content.res.Configuration;
 import android.util.Log;
+import java.util.List;
 
 
-public class kSpacer extends Activity
+public class kSpacer extends Activity implements SensorEventListener
 {
     public static kSpacer m_test = null;
     private static String TAG = "kSpacer";
+    private static final float NS2S = 1.0f / 1000000000.0f;
+
+    private SensorManager mSensorManager;
+    private Sensor mGyroSensor;
+    private Sensor mAccelSensor;
+    private Sensor mRotSensor;
+    private Sensor mMagSensor;
 
     GL2JNIView mView;
     //SurfaceView mView;
@@ -72,7 +84,33 @@ public class kSpacer extends Activity
     	//mView = new GLSurfaceView(this);
     	setContentView(mView);
 
-	m_test = this;
+        mSensorManager = (SensorManager) getSystemService(this.SENSOR_SERVICE);
+        mGyroSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
+        mAccelSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        mRotSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR);
+        mMagSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
+
+        if(mGyroSensor == null)
+        {
+          Log.v(TAG, "NO GYROSCOPE");
+        }
+
+        if(mAccelSensor == null)
+        {
+          Log.v(TAG, "NO Accelerometer");
+        }
+
+        if(mRotSensor == null)
+        {
+          Log.v(TAG, "NO Rotation");
+        }
+
+        if(mMagSensor == null)
+        {
+          Log.v(TAG, "NO Magnet");
+        }
+
+	    m_test = this;
         Log.v(TAG, "Thread = " + Thread.currentThread().getId());
     }
 
@@ -83,7 +121,7 @@ public class kSpacer extends Activity
        // Checks the orientation of the screen
        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
          Log.v(TAG, "ORIENTATION_LANDSCAPE");
-       } 
+       }
        else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT){
          Log.v(TAG, "ORIENTATION_PORTRAIT");
        }
@@ -145,6 +183,63 @@ public class kSpacer extends Activity
         //TestLib.onKeyboard(1, keyCode);
 
     	return true;
+    }
+
+    @Override
+    protected void onPause() {
+      // Unregister the listener on the onPause() event to preserve battery life;
+      super.onPause();
+      mSensorManager.unregisterListener(this);
+    }
+
+    @Override
+    protected void onResume()
+    {
+      super.onResume();
+      mSensorManager.registerListener(this, mMagSensor, SensorManager.SENSOR_DELAY_GAME);
+    }
+
+    // The following method is required by the SensorEventListener interface;
+    public void onAccuracyChanged(Sensor sensor, int accuracy)
+    {
+    }
+
+    //public void onSensorChanged(SensorEvent event) {
+    //  float azimuth = Math.round(event.values[0]);
+      // The other values provided are:
+      //  float pitch = event.values[1];
+      //  float roll = event.values[2];
+
+    //  Log.v(TAG, "Azimuth: " + Float.toString(azimuth));
+    //}
+
+    public void onSensorChanged(SensorEvent event)
+    {
+      //Log.v(TAG, "IS SENSOR");
+      if(event.sensor == mGyroSensor)
+      {
+        float axisX = event.values[0];
+        float axisY = event.values[1];
+        float axisZ = event.values[2];
+
+        Log.v(TAG, "gyro angles " + Float.toString(axisX) + " " + Float.toString(axisY) + " " + Float.toString(axisZ));
+      }
+      else if(event.sensor == mAccelSensor)
+      {
+        float axisX = event.values[0];
+        float axisY = event.values[1];
+        float axisZ = event.values[2];
+
+        Log.v(TAG, "accel delta " + Float.toString(axisX) + " " + Float.toString(axisY) + " " + Float.toString(axisZ));
+      }
+      else if(event.sensor == mMagSensor)
+      {
+        float axisX = Math.round(event.values[0]);
+        float axisY = Math.round(event.values[1]);
+        float axisZ = Math.round(event.values[2]);
+
+        Log.v(TAG, "compass delta " + Float.toString(axisX) + " " + Float.toString(axisY) + " " + Float.toString(axisZ));
+      }
     }
 
     /* A native method that is implemented by the

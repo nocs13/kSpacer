@@ -632,4 +632,22 @@ JNIEXPORT void JNICALL Java_com_example_kSpacer_kSpacerLib_onTouch(JNIEnv * env,
 
   kgmGameApp::gameApplication()->android_onTouch(env, obj,  a, x, y);
 }
+
+JNIEXPORT void JNICALL Java_com_example_kSpacer_kSpacerLib_onCompass(JNIEnv * env, jobject obj, jfloat x, jfloat y, jfloat z)
+{
+#ifdef DEBUG
+  kgm_log() << "Java_com_example_kSpacer_kSpacerLib_onCompass \n";
+#endif
+
+  kgmGameApp::gameApplication()->android_onCompass(env, obj,  x, y, z);
+}
+
+JNIEXPORT void JNICALL Java_com_example_kSpacer_kSpacerLib_onGyroscope(JNIEnv * env, jobject obj, jfloat x, jfloat y, jfloat z)
+{
+#ifdef DEBUG
+  kgm_log() << "Java_com_example_kSpacer_kSpacerLib_onGyroscope \n";
+#endif
+
+  kgmGameApp::gameApplication()->android_onGyroscope(env, obj,  x, y, z);
+}
 #endif
