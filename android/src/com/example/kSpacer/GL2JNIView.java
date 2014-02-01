@@ -49,6 +49,9 @@ import javax.microedition.khronos.egl.EGLContext;
 import javax.microedition.khronos.egl.EGLDisplay;
 import javax.microedition.khronos.opengles.GL10;
 
+import java.util.*;
+import java.lang.*;
+
 /**
  * A simple GLSurfaceView sub-class that demonstrate how to perform
  * OpenGL ES 2.0 rendering into a GL Surface. Note the following important
@@ -69,6 +72,77 @@ import javax.microedition.khronos.opengles.GL10;
  */
 class GL2JNIView extends GLSurfaceView {
 
+	public static class Event
+	{
+		public int id;
+		public int key;
+		public int x;
+		public int y;
+	}
+	
+    public  static final int EVT_NONE    = 0x00;
+    public  static final int EVT_KEYUP   = 0xf1;
+    public  static final int EVT_KEYDOWN = 0xf2;
+    public  static final int EVT_TOUCH   = 0xf3;
+
+	private static boolean     evtLock   = false;
+    private static List<Event> events    = new ArrayList<GL2JNIView.Event>();
+	
+	public  static int        evtId   = EVT_NONE;
+    public  static int        evtKey  = 0;
+    public  static int        evtX    = 0;
+    public  static int        evtY    = 0;
+    
+
+	public static void addKeyEvent(int id, int key)
+	{
+		GL2JNIView.Event evt = new GL2JNIView.Event();
+		evt.id = id;
+		evt.key = key;
+		evt.x = 0;
+		evt.y = 0;
+		
+		GL2JNIView.addEvent(evt);
+	}
+	
+	public static void addTouchEvent(int id, int key, int x, int y)
+	{
+		GL2JNIView.Event evt = new GL2JNIView.Event();
+		evt.id = id;
+		evt.key = key;
+		evt.x = x;
+		evt.y = y;
+		
+		GL2JNIView.addEvent(evt);
+	}
+	
+	public static void addEvent(Event evt)
+	{
+		while(GL2JNIView.evtLock)
+		{
+			try{Thread.sleep(10);}
+			catch(Exception e){}
+		}
+			
+		GL2JNIView.evtLock = true;	
+		GL2JNIView.events.add(0, evt);
+		GL2JNIView.evtLock = false;	
+	}
+	
+	public static Event getEvent()
+	{
+		if(GL2JNIView.evtLock || GL2JNIView.events.size() < 1)
+			return null;
+			
+		GL2JNIView.evtLock = true;	
+		int   esize = GL2JNIView.events.size();
+		Event evt   = GL2JNIView.events.get(esize - 1);
+		GL2JNIView.events.remove(esize - 1);
+		GL2JNIView.evtLock = false;	
+		
+		return evt;
+	}
+	
     private static String TAG = "GL2JNIView";
     private static final boolean DEBUG = false;
     private static AssetManager assMan = null;
@@ -76,16 +150,7 @@ class GL2JNIView extends GLSurfaceView {
     public static Context ctx = null;
     public static Surface srf = null;
 
-    public static final int EVT_NONE    = 0xf0;
-    public static final int EVT_KEYUP   = 0xf1;
-    public static final int EVT_KEYDOWN = 0xf2;
-    public static final int EVT_TOUCH   = 0xf3;
     public static boolean   isGL     = false;
-    public static boolean   isEvt    = false;
-    public static int        evtId   = EVT_NONE;
-    public static int        evtKey  = 0;
-    public static int        evtX    = 0;
-    public static int        evtY    = 0;
 
 
     public GL2JNIView(Context context) {
@@ -377,9 +442,7 @@ class GL2JNIView extends GLSurfaceView {
             if(!GL2JNIView.isGL)
               return;
 
-            kSpacerLib.idle();
-
-            //if(GL2JNIView.isEvt)
+            /*if(GL2JNIView.evtId != EVT_NONE)
             {
             	switch(GL2JNIView.evtId)
             	{
@@ -394,9 +457,29 @@ class GL2JNIView extends GLSurfaceView {
             		break;
             	}
 
-            	GL2JNIView.isEvt = false;
                 GL2JNIView.evtId = EVT_NONE;
             }
+            else
+            {
+			}*/
+			GL2JNIView.Event evt = null;
+			while((evt = GL2JNIView.getEvent()) != null)
+			{
+            	switch(evt.id)
+            	{
+            	case GL2JNIView.EVT_KEYUP:
+            		kSpacerLib.onKeyboard(1, evt.key);
+            		break;
+            	case GL2JNIView.EVT_KEYDOWN:
+            		kSpacerLib.onKeyboard(0, evt.key);
+            		break;
+            	case GL2JNIView.EVT_TOUCH:
+            		kSpacerLib.onTouch(evt.key, evt.x, evt.y);
+            		break;
+            	}
+			}
+			
+            kSpacerLib.idle();
         }
 
         public void onSurfaceChanged(GL10 gl, int width, int height) {

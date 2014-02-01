@@ -130,31 +130,34 @@ public class kSpacer extends Activity implements SensorEventListener
     @Override
     public boolean onTouchEvent(MotionEvent me)
     {
+		//if(GL2JNIView.evtId != GL2JNIView.EVT_NONE)
+		//  return true;
+		
     	switch(me.getAction())
     	{
     	case MotionEvent.ACTION_MOVE:
-    		GL2JNIView.isEvt = true;
-    		GL2JNIView.evtId = GL2JNIView.EVT_TOUCH;
-    		GL2JNIView.evtKey = 0;
-    		GL2JNIView.evtX = (int)me.getX();
-    		GL2JNIView.evtY = (int)me.getY();
+    		//GL2JNIView.evtId = GL2JNIView.EVT_TOUCH;
+    		//GL2JNIView.evtKey = 0;
+    		//GL2JNIView.evtX = (int)me.getX();
+    		//GL2JNIView.evtY = (int)me.getY();
         	//TestLib.onTouch(0, (int)me.getX(), (int)me.getY());
+        	GL2JNIView.addTouchEvent(GL2JNIView.EVT_TOUCH, 0, (int)me.getX(), (int)me.getY());
     		break;
     	case MotionEvent.ACTION_DOWN:
-    		GL2JNIView.isEvt = true;
-    		GL2JNIView.evtId = GL2JNIView.EVT_TOUCH;
-    		GL2JNIView.evtKey = 1;
-    		GL2JNIView.evtX = (int)me.getX();
-    		GL2JNIView.evtY = (int)me.getY();
+    		//GL2JNIView.evtId = GL2JNIView.EVT_TOUCH;
+    		//GL2JNIView.evtKey = 1;
+    		//GL2JNIView.evtX = (int)me.getX();
+    		//GL2JNIView.evtY = (int)me.getY();
         	//TestLib.onTouch(1, (int)me.getX(), (int)me.getY());
+        	GL2JNIView.addTouchEvent(GL2JNIView.EVT_TOUCH, 1, (int)me.getX(), (int)me.getY());
     		break;
     	case MotionEvent.ACTION_UP:
-    		GL2JNIView.isEvt = true;
-    		GL2JNIView.evtId = GL2JNIView.EVT_TOUCH;
-    		GL2JNIView.evtKey = 2;
-    		GL2JNIView.evtX = (int)me.getX();
-    		GL2JNIView.evtY = (int)me.getY();
+    		//GL2JNIView.evtId = GL2JNIView.EVT_TOUCH;
+    		//GL2JNIView.evtKey = 2;
+    		//GL2JNIView.evtX = (int)me.getX();
+    		//GL2JNIView.evtY = (int)me.getY();
         	//TestLib.onTouch(2, (int)me.getX(), (int)me.getY());
+        	GL2JNIView.addTouchEvent(GL2JNIView.EVT_TOUCH, 2, (int)me.getX(), (int)me.getY());
     		break;
     	}
     	//TestLib.onMsMove((int)me.getX(), (int)me.getY());
@@ -166,22 +169,26 @@ public class kSpacer extends Activity implements SensorEventListener
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event)
     {
-		GL2JNIView.isEvt = true;
-		GL2JNIView.evtId = GL2JNIView.EVT_KEYDOWN;
-		GL2JNIView.evtKey = keyCode;
+		//if(GL2JNIView.evtId != GL2JNIView.EVT_NONE)
+		//  return true;
+		
+		//GL2JNIView.evtId = GL2JNIView.EVT_KEYDOWN;
+		//GL2JNIView.evtKey = keyCode;
         //TestLib.onKeyboard(0, keyCode);
-
+		GL2JNIView.addKeyEvent(GL2JNIView.EVT_KEYDOWN, keyCode);
     	return true;
     }
 
     @Override
     public boolean onKeyUp(int keyCode, KeyEvent event)
     {
-		GL2JNIView.isEvt = true;
-		GL2JNIView.evtId = GL2JNIView.EVT_KEYUP;
-		GL2JNIView.evtKey = keyCode;
+		//if(GL2JNIView.evtId != GL2JNIView.EVT_NONE)
+		//  return true;
+		
+		//GL2JNIView.evtId = GL2JNIView.EVT_KEYUP;
+		//GL2JNIView.evtKey = keyCode;
         //TestLib.onKeyboard(1, keyCode);
-
+		GL2JNIView.addKeyEvent(GL2JNIView.EVT_KEYUP, keyCode);
     	return true;
     }
 
@@ -196,7 +203,7 @@ public class kSpacer extends Activity implements SensorEventListener
     protected void onResume()
     {
       super.onResume();
-      mSensorManager.registerListener(this, mMagSensor, SensorManager.SENSOR_DELAY_GAME);
+      //mSensorManager.registerListener(this, mMagSensor, SensorManager.SENSOR_DELAY_GAME);
     }
 
     // The following method is required by the SensorEventListener interface;

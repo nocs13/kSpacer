@@ -374,10 +374,16 @@ public:
     }
     else if(t == "KAsteroidSpawner")
     {
+      #ifdef ANDROID
+      return null;
+      #endif
       return new ASp_AsteroidSpawner(this);
     }
     else if(t == "ASp_AsteroidSpawner")
     {
+      #ifdef ANDROID
+      return null;
+      #endif
       return new ASp_AsteroidSpawner(this);
     }
     else if(t == "GunFA")

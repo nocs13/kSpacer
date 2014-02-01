@@ -53,7 +53,7 @@ private:
         float    alpha = DEGTORAD(rand()%360);
         p->pos   = vec3(distance * cos(alpha),
                         distance * sin(alpha),
-                        0.5f * distance * sin(DEGTORAD(rand()%360)));
+                        0.3f * distance * sin(DEGTORAD(rand()%360)));
         p->col.color = colors[rand() % 6];
       }
     }
@@ -84,7 +84,7 @@ public:
     m_visual->set(mtl);
     mtl->release();
 
-    Stars*   s = new Stars(50, 100, 1);
+    Stars*   s = new Stars(30, 100, 1);
     m_visual->set((kgmParticles*)s);
     s->release();
   }
@@ -129,7 +129,7 @@ public:
     m_visual->set(mtl);
     mtl->release();
 
-    u32 points = 500;
+    u32 points = 300;
     u32 colors[] = {0xfffffe9b, 0xfffff483, 0xfffffb3a, 0xfffffaba, 0xffffffff};
     kgmMesh* mesh = new kgmMesh();
     mesh->m_rtype = kgmMesh::RT_POINT;
@@ -141,7 +141,7 @@ public:
       vec3 v(pow(-1.0, rand()%2) * rand(), pow(-1.0, rand()%2) * rand(), pow(-1.0, rand()%2) * rand());
       v.normalize();
       v = v * 1000;
-      v.z *= 0.5;
+      v.z *= 0.3;
 
       pc[i].pos = v;
       pc[i].col = colors[rand()%5];

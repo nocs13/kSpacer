@@ -18,7 +18,7 @@ void main(void)
 
 //Fragment Shader
 #ifdef GL_ES
-precision highp float;
+precision lowp float;
 #endif
 uniform sampler2D g_txColor;
 
