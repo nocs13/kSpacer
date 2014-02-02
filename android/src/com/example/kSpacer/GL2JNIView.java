@@ -235,9 +235,11 @@ class GL2JNIView extends GLSurfaceView {
         }
     }
 
-    private static void checkEglError(String prompt, EGL10 egl) {
+    private static void checkEglError(String prompt, EGL10 egl) 
+    {
         int error;
-        while ((error = egl.eglGetError()) != EGL10.EGL_SUCCESS) {
+        while ((error = egl.eglGetError()) != EGL10.EGL_SUCCESS) 
+        {
             Log.e(TAG, String.format("%s: EGL error: 0x%x", prompt, error));
         }
     }
@@ -269,7 +271,8 @@ class GL2JNIView extends GLSurfaceView {
             EGL10.EGL_NONE
         };
 
-        public EGLConfig chooseConfig(EGL10 egl, EGLDisplay display) {
+        public EGLConfig chooseConfig(EGL10 egl, EGLDisplay display) 
+        {
 
             /* Get the number of minimally matching EGL configurations
              */
@@ -326,7 +329,8 @@ class GL2JNIView extends GLSurfaceView {
         private int findConfigAttrib(EGL10 egl, EGLDisplay display,
                 EGLConfig config, int attribute, int defaultValue) {
 
-            if (egl.eglGetConfigAttrib(display, config, attribute, mValue)) {
+            if (egl.eglGetConfigAttrib(display, config, attribute, mValue)) 
+            {
                 return mValue[0];
             }
             return defaultValue;
@@ -414,13 +418,19 @@ class GL2JNIView extends GLSurfaceView {
                     "EGL_RENDERABLE_TYPE",
                     "EGL_CONFORMANT"
             };
+            
             int[] value = new int[1];
-            for (int i = 0; i < attributes.length; i++) {
+            
+            for (int i = 0; i < attributes.length; i++) 
+            {
                 int attribute = attributes[i];
                 String name = names[i];
-                if ( egl.eglGetConfigAttrib(display, config, attribute, value)) {
+                if ( egl.eglGetConfigAttrib(display, config, attribute, value)) 
+                {
                     Log.w(TAG, String.format("  %s: %d\n", name, value[0]));
-                } else {
+                } 
+                else 
+                {
                     // Log.w(TAG, String.format("  %s: failed\n", name));
                     while (egl.eglGetError() != EGL10.EGL_SUCCESS);
                 }
@@ -442,27 +452,8 @@ class GL2JNIView extends GLSurfaceView {
             if(!GL2JNIView.isGL)
               return;
 
-            /*if(GL2JNIView.evtId != EVT_NONE)
-            {
-            	switch(GL2JNIView.evtId)
-            	{
-            	case GL2JNIView.EVT_KEYUP:
-            		kSpacerLib.onKeyboard(1, GL2JNIView.evtKey);
-            		break;
-            	case GL2JNIView.EVT_KEYDOWN:
-            		kSpacerLib.onKeyboard(0, GL2JNIView.evtKey);
-            		break;
-            	case GL2JNIView.EVT_TOUCH:
-            		kSpacerLib.onTouch(GL2JNIView.evtKey, GL2JNIView.evtX, GL2JNIView.evtY);
-            		break;
-            	}
-
-                GL2JNIView.evtId = EVT_NONE;
-            }
-            else
-            {
-			}*/
 			GL2JNIView.Event evt = null;
+			
 			while((evt = GL2JNIView.getEvent()) != null)
 			{
             	switch(evt.id)
@@ -482,13 +473,15 @@ class GL2JNIView extends GLSurfaceView {
             kSpacerLib.idle();
         }
 
-        public void onSurfaceChanged(GL10 gl, int width, int height) {
+        public void onSurfaceChanged(GL10 gl, int width, int height) 
+        {
             assMan = GL2JNIView.ctx.getAssets();
             kSpacerLib.init(width, height, assMan, GL2JNIView.srf);
             Log.v(TAG, "onSurfaceChanged");
         }
 
-        public void onSurfaceCreated(GL10 gl, EGLConfig config) {
+        public void onSurfaceCreated(GL10 gl, EGLConfig config) 
+        {
             // Do nothing.
             Log.v(TAG, "onSurfaceCreated");
         }

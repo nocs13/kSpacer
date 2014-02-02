@@ -563,7 +563,8 @@ kSpacer*          m_app  = null;
 
 bool kgm_android_init_app()
 {
-  m_app = new kSpacer();
+  //m_app = new kSpacer();
+  m_app = &theApp;
 
   return true;
 }
