@@ -84,7 +84,7 @@ public:
     m_visual->set(mtl);
     mtl->release();
 
-    Stars*   s = new Stars(30, 100, 1);
+    Stars*   s = new Stars(300, 100, 1);
     m_visual->set((kgmParticles*)s);
     s->release();
   }
@@ -129,7 +129,7 @@ public:
     m_visual->set(mtl);
     mtl->release();
 
-    u32 points = 300;
+    u32 points = 3000;
     u32 colors[] = {0xfffffe9b, 0xfffff483, 0xfffffb3a, 0xfffffaba, 0xffffffff};
     kgmMesh* mesh = new kgmMesh();
     mesh->m_rtype = kgmMesh::RT_POINT;

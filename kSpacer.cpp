@@ -52,7 +52,7 @@ KGMOBJECT_IMPLEMENT(ASp_CosmicDust, kgmGameObject);
 kgmString g_loc_dir;
 bool g_ms_camera = false;
 s8   g_map_current = 0;
-s8   g_maps_count  = 7;
+s8   g_maps_count  = 5;
 s8   g_maps_unlock = 1;
 
 const char* g_maps[] =

@@ -73,9 +73,18 @@ public:
       game->getLogic()->getObjectsByType(kgmActor::Class, objs);
 
       for(int i = 0; i < objs.size(); i++)
-        gui->add((kgmActor*)objs[i]);
+      {
+        kgmActor* act = (kgmActor*)objs[i];
+
+        if(act->isType("ASp_Spaceship"))
+          gui->add(act);
+        else if(act->isType("ASp_Spacer"))
+          gui->add(act);
+      }
 
       objs.clear();
+
+      gui->add(this);
 
       getBody()->m_velocity = speed_min;
     }

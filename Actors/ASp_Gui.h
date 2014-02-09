@@ -108,11 +108,21 @@ class ASp_Gui: public kgmGui
       ga.gui->useStyle(false);
 
       if(a->m_gameplayer)
-        ga.gui->setColor(0xffffffff);
+        ga.gui->setColor(0xffaaff88);
       else if(!strcmp("ASp_SpaceshipA", a->runtime().nClass))
         ga.gui->setColor(0xff0000ff);
+      else if(!strcmp("ASp_SpaceshipB", a->runtime().nClass))
+        ga.gui->setColor(0xff0000ff);
       else if(!strcmp("ASp_SpacerA", a->runtime().nClass))
-        ga.gui->setColor(0xff4169ff);
+        ga.gui->setColor(0xffff69ff);
+      else if(!strcmp("ASp_SpacerB", a->runtime().nClass))
+        ga.gui->setColor(0xffff69ff);
+      else if(!strcmp("ASp_SpacerC", a->runtime().nClass))
+        ga.gui->setColor(0xffff69ff);
+      else if(!strcmp("ASp_SpacerD", a->runtime().nClass))
+        ga.gui->setColor(0xffff69ff);
+      else if(!strcmp("ASp_SpacerE", a->runtime().nClass))
+        ga.gui->setColor(0xffff69ff);
 
       ga.gui->show();
       gui_actors.add(ga);
