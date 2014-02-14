@@ -19,6 +19,7 @@ class ASpacer: public kgmActor
 
   ASp_Gui*   gui;
   bool       explode;
+
 public:
   ASpacer(kgmIGame* g)
   {
@@ -142,7 +143,7 @@ public:
       if(pos.x < -3000) pos.x =  3000;
       if(pos.x >  3000) pos.x = -3000;
       if(pos.y < -3000) pos.y =  3000;
-      if(pos.x >  3000) pos.y = -3000;
+      if(pos.y >  3000) pos.y = -3000;
 
       getBody()->translate(pos);
     }

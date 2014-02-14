@@ -14,6 +14,7 @@ protected:
   float     chase_min;
   float     roll;
   float     yaaw;
+  float     activeDistance;
 
   bool      chase;
   bool      explode;
@@ -33,6 +34,8 @@ public:
     roll      = 0.0;
     yaaw      = 0.0;
 
+    activeDistance = 10.0f;
+
     chase     = false;
     explode   = false;
 
@@ -50,7 +53,37 @@ public:
   {
     kgmActor::update(ms);
 
-    if(m_visual)
+    kgmActor* player = (kgmActor*)game->getLogic()->getObjectById("Player");
+
+    if(player)
+    {
+      float dist = m_body->position().distance(player->getBody()->position());
+
+      if(dist > activeDistance)
+      {
+        disable();
+
+        if(m_visual)
+          m_visual->hide();
+
+        if(m_body)
+          m_body->disable();
+
+        return;
+      }
+      else if(!valid())
+      {
+        enable();
+
+        if(m_visual)
+          m_visual->show();
+
+        if(m_body)
+          m_body->enable();
+      }
+    }
+
+    if(m_visual && m_visual->visible())
     {
       vec3 vz(0, 0, 1), vy(0, 0, 0), vx(1, 0, 0);
       mtx4 mz, mx, my, mr;
@@ -89,7 +122,7 @@ public:
       if(pos.x < -3000) pos.x =  3000;
       if(pos.x >  3000) pos.x = -3000;
       if(pos.y < -3000) pos.y =  3000;
-      if(pos.x >  3000) pos.y = -3000;
+      if(pos.y >  3000) pos.y = -3000;
 
       getBody()->translate(pos);
     }
