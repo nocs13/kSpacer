@@ -65,7 +65,7 @@ void main( void )
 
  float distance = length(L - V);
  float intensity  = 1.0;
-       intensity  = max(dot(normal.xyz, normalize(vL)), 0.0) / (1.0 + 0.1 * distance);
+       intensity  = max(dot(normal.xyz, normalize(vL)), 0.0) / (1.0 + 0.01 * distance);
        intensity  = clamp(intensity, 0.2, 0.7);
  vec3  reflection = normalize(normal.xyz * 2.0 * intensity - vL);
  //float ispecular  = pow(clamp(dot(reflection, Y), 0, 1), 10);

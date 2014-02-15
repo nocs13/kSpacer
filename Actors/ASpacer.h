@@ -226,6 +226,16 @@ public:
 
           if(m_body->m_velocity > speed_max)
             m_body->m_velocity = speed_max;
+
+          for(int i = 0; i < m_dummies.size(); i++)
+          {
+            kgmGameObject* go = (kgmGameObject*)m_dummies[i]->linked();
+
+            if(kgmObject::isValid(go) && go->isType("ASp_MotorA"))
+            {
+              ((ASp_MotorA*)go)->setSpeed(m_body->m_velocity);
+            }
+          }
         }
       }
       else if(m_state->id == "slow")
@@ -239,6 +249,16 @@ public:
         }
         else if(m_body->m_velocity <= speed_min)
           setState(m_state->switchto);
+
+        for(int i = 0; i < m_dummies.size(); i++)
+        {
+          kgmGameObject* go = (kgmGameObject*)m_dummies[i]->linked();
+
+          if(kgmObject::isValid(go) && go->isType("ASp_MotorA"))
+          {
+            ((ASp_MotorA*)go)->setSpeed(m_body->m_velocity);
+          }
+        }
       }
       else if(m_state->id == "correct")
       {

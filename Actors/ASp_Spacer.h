@@ -18,6 +18,7 @@ protected:
 
   bool      chase;
   bool      explode;
+  bool      active;
 
   kgmGameObject*  target;
 
@@ -34,10 +35,11 @@ public:
     roll      = 0.0;
     yaaw      = 0.0;
 
-    activeDistance = 10.0f;
+    activeDistance = 100.0f;
 
     chase     = false;
     explode   = false;
+    active    = true;
 
     m_body->m_gravity = false;
     m_body->m_bound.min = vec3(-1, -1, -1);
@@ -59,31 +61,31 @@ public:
     {
       float dist = m_body->position().distance(player->getBody()->position());
 
-      if(dist > activeDistance)
+      if(active && dist > activeDistance)
       {
-        disable();
-
         if(m_visual)
           m_visual->hide();
 
         if(m_body)
           m_body->disable();
 
+        active = false;
+
         return;
       }
-      else if(!valid())
+      else if(!active)
       {
-        enable();
-
         if(m_visual)
           m_visual->show();
 
         if(m_body)
           m_body->enable();
+
+        active = true;
       }
     }
 
-    if(m_visual && m_visual->visible())
+    if(m_visual && m_visual->valid() && m_visual->visible())
     {
       vec3 vz(0, 0, 1), vy(0, 0, 0), vx(1, 0, 0);
       mtx4 mz, mx, my, mr;
@@ -115,7 +117,7 @@ public:
       }
     }
 
-    if(getBody())
+    if(getBody() && getBody()->valid())
     {
       vec3 pos = getBody()->position();
 
@@ -127,7 +129,7 @@ public:
       getBody()->translate(pos);
     }
 
-    if(m_state)
+    if(valid() && m_state)
     {
       if(m_state->id == "idle")
       {

@@ -259,12 +259,6 @@ public:
 
     visual->m_transform = m_visual->m_transform;
     visual->update();
-    //kgmGameObject::update(mls);
-
-    if(m_parent && kgmObject::isValid(m_parent) && m_parent->getBody())
-    {
-      ptl->m_speed = 2.0 + 25 * m_parent->getBody()->m_velocity;
-    }
   }
 
   void event(kgmObject* o, kgmString arg)
@@ -275,6 +269,11 @@ public:
       visual->remove();
       remove();
     }
+  }
+
+  void setSpeed(float speed)
+  {
+    ptl->m_speed = 2.0 + 25 * speed;
   }
 };
 
