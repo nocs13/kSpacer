@@ -91,11 +91,11 @@ public:
       mtx4 mz, mx, my, mr;
       float pich = 0.0; //0.5 * PI;
 
-      mz.rotate(0.5 * PI, vz);
+      mz.rotate(pich, vz);
       mx.rotate(roll, vx);
       my.rotate(yaaw, vy);
 
-      mr.rotate(-roll, yaaw, -pich);
+      mr = my * mx;
       m_visual->m_transform = mr * m_visual->m_transform;
 
       for(int i = 0; i < m_dummies.length(); i++)
