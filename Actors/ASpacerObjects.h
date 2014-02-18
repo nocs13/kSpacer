@@ -89,7 +89,7 @@ public:
 #ifdef ANDROID
     scount = 100;
 #else
-    scoutn = 300;
+    scount = 300;
 #endif
 
     Stars*   s = new Stars(scount, 100, 1);

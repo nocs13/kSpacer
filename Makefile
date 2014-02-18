@@ -45,8 +45,10 @@ $(OUT): libkgmEngine.a
 	
 
 clean:	
-	$(RM) kSpacer *.o
+	$(RM) kSpacer
 
+distclean: clean
+	$(RM) kSpacer
 run: 
 	./kSpacer
 

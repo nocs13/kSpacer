@@ -347,11 +347,9 @@ public:
     }
     else if(s == "gui_update")
     {
-      kgm_log() << "update gui";
       gui->updateMaps((char**)g_maps, (u32)g_maps_unlock);
       data.umaps = g_maps_unlock;
       saveData();
-      kgm_log() << "updated gui";
     }
   }
 

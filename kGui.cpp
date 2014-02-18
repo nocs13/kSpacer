@@ -20,7 +20,10 @@ kGui::kGui(kgmGameBase* game)
   int x, y, w, h;
 
   game->getRect(x, y, w, h);
+
+#ifdef DEBUG
   kgm_log() << "GameRect: " << w << " " << h << ".";
+#endif
 
   m_guiMain = new kgmGui(null, 0, 0, w, h);
   m_guiMain->addListener(this);
@@ -63,7 +66,7 @@ kGui::kGui(kgmGameBase* game)
   btn->setSid("continue");
   */
 
-  kgmGuiList* lst = m_guiLevels = new kgmGuiList(gui, w / 2 - 150, 10, 300, h - 100);
+  kgmGuiList* lst = m_guiLevels = new kgmGuiList(gui, w / 2 - 150, 50, 300, h - 150);
   lst->m_itemHeight = 40;
   lst->setSid("levels");
   gui->show();
