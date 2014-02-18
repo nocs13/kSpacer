@@ -84,7 +84,15 @@ public:
     m_visual->set(mtl);
     mtl->release();
 
-    Stars*   s = new Stars(300, 100, 1);
+    int scount;
+
+#ifdef ANDROID
+    scount = 100;
+#else
+    scoutn = 300;
+#endif
+
+    Stars*   s = new Stars(scount, 100, 1);
     m_visual->set((kgmParticles*)s);
     s->release();
   }
@@ -129,7 +137,14 @@ public:
     m_visual->set(mtl);
     mtl->release();
 
-    u32 points = 3000;
+    u32 points;
+
+#ifdef ANDROID
+    points = 1000;
+#else
+    points = 3000;
+#endif
+
     u32 colors[] = {0xfffffe9b, 0xfffff483, 0xfffffb3a, 0xfffffaba, 0xffffffff};
     kgmMesh* mesh = new kgmMesh();
     mesh->m_rtype = kgmMesh::RT_POINT;
