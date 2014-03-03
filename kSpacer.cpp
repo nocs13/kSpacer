@@ -237,7 +237,6 @@ public:
     m_logic = new ASp_Logic(this);
 
     if(m_render)
-      //m_render->setBgColor(0xFF0077AA);
       m_render->setBgColor(0xFF000000);
 
     data.sig  = 0xffff;
@@ -569,27 +568,27 @@ bool kgm_android_init_app()
 
 const char*  kgm_android_classname()
 {
-  return "com/example/kSpacer/kSpacer";
+  return "com/kgmEngine/kSpacer/kSpacer";
 }
 
 extern "C"
 {
-JNIEXPORT void  JNICALL Java_com_example_kSpacer_kSpacerLib_init(JNIEnv * env, jobject obj,  jint width, jint height,
+JNIEXPORT void  JNICALL Java_com_kgmEngine_kSpacer_kSpacerLib_init(JNIEnv * env, jobject obj,  jint width, jint height,
                                                            jobject am, jobject surface);
-JNIEXPORT void  JNICALL Java_com_example_kSpacer_kSpacerLib_quit(JNIEnv * env, jobject obj);
-JNIEXPORT void  JNICALL Java_com_example_kSpacer_kSpacerLib_idle(JNIEnv * env, jobject obj);
-JNIEXPORT void  JNICALL Java_com_example_kSpacer_kSpacerLib_onKeyboard(JNIEnv * env, jobject obj, jint a, jint key);
-JNIEXPORT void  JNICALL Java_com_example_kSpacer_kSpacerLib_onTouch(JNIEnv * env, jobject obj,  jint act, jint x, jint y);
+JNIEXPORT void  JNICALL Java_com_kgmEngine_kSpacer_kSpacerLib_quit(JNIEnv * env, jobject obj);
+JNIEXPORT void  JNICALL Java_com_kgmEngine_kSpacer_kSpacerLib_idle(JNIEnv * env, jobject obj);
+JNIEXPORT void  JNICALL Java_com_kgmEngine_kSpacer_kSpacerLib_onKeyboard(JNIEnv * env, jobject obj, jint a, jint key);
+JNIEXPORT void  JNICALL Java_com_kgmEngine_kSpacer_kSpacerLib_onTouch(JNIEnv * env, jobject obj,  jint act, jint x, jint y);
 };
 
-JNIEXPORT void JNICALL Java_com_example_kSpacer_kSpacerLib_init(JNIEnv* env, jobject obj,  jint width, jint height, jobject am,
+JNIEXPORT void JNICALL Java_com_kgmEngine_kSpacer_kSpacerLib_init(JNIEnv* env, jobject obj,  jint width, jint height, jobject am,
                                                           jobject surface)
 {
 #ifdef DEBUG
-  kgm_log() << "Java_com_example_kSpacer_kSpacerLib_init\n";
+  kgm_log() << "Java_com_kgmEngine_kSpacer_kSpacerLib_init\n";
 #endif
 
-  g_loc_dir = "/data/data/com.example.kSpacer";
+  g_loc_dir = "/data/data/com.kgmEngine.kSpacer";
 
   if(kgmGameApp::gameApplication()->game())
   {
@@ -602,55 +601,55 @@ JNIEXPORT void JNICALL Java_com_example_kSpacer_kSpacerLib_init(JNIEnv* env, job
   }
 }
 
-JNIEXPORT void JNICALL Java_com_example_kSpacer_kSpacerLib_quit(JNIEnv * env, jobject obj)
+JNIEXPORT void JNICALL Java_com_kgmEngine_kSpacer_kSpacerLib_quit(JNIEnv * env, jobject obj)
 {
 #ifdef DEBUG
-  kgm_log() << "Java_com_example_kSpacer_kSpacerLib_quit \n";
+  kgm_log() << "Java_com_kgmEngine_kSpacer_kSpacerLib_quit \n";
 #endif
 
   kgmGameApp::gameApplication()->android_quit(env, obj);
 }
 
-JNIEXPORT void JNICALL Java_com_example_kSpacer_kSpacerLib_idle(JNIEnv * env, jobject obj)
+JNIEXPORT void JNICALL Java_com_kgmEngine_kSpacer_kSpacerLib_idle(JNIEnv * env, jobject obj)
 {
 #ifdef DEBUG
-  kgm_log() << "Java_com_example_kSpacer_kSpacerLib_idle \n";
+  kgm_log() << "Java_com_kgmEngine_kSpacer_kSpacerLib_idle \n";
 #endif
 
   kgmGameApp::gameApplication()->android_idle(env, obj);
 }
 
-JNIEXPORT void JNICALL Java_com_example_kSpacer_kSpacerLib_onKeyboard(JNIEnv * env, jobject obj, jint a, jint key)
+JNIEXPORT void JNICALL Java_com_kgmEngine_kSpacer_kSpacerLib_onKeyboard(JNIEnv * env, jobject obj, jint a, jint key)
 {
 #ifdef DEBUG
-  kgm_log() << "Java_com_example_kSpacer_kSpacerLib_onKeyboard \n";
+  kgm_log() << "Java_com_kgmEngine_kSpacer_kSpacerLib_onKeyboard \n";
 #endif
 
   kgmGameApp::gameApplication()->android_onKeyboard(env, obj, a, key);
 }
 
-JNIEXPORT void JNICALL Java_com_example_kSpacer_kSpacerLib_onTouch(JNIEnv * env, jobject obj, jint a, jint x, jint y)
+JNIEXPORT void JNICALL Java_com_kgmEngine_kSpacer_kSpacerLib_onTouch(JNIEnv * env, jobject obj, jint a, jint x, jint y)
 {
 #ifdef DEBUG
-  kgm_log() << "Java_com_example_kSpacer_kSpacerLib_onTouch \n";
+  kgm_log() << "Java_com_kgmEngine_kSpacer_kSpacerLib_onTouch \n";
 #endif
 
   kgmGameApp::gameApplication()->android_onTouch(env, obj,  a, x, y);
 }
 
-JNIEXPORT void JNICALL Java_com_example_kSpacer_kSpacerLib_onCompass(JNIEnv * env, jobject obj, jfloat x, jfloat y, jfloat z)
+JNIEXPORT void JNICALL Java_com_kgmEngine_kSpacer_kSpacerLib_onCompass(JNIEnv * env, jobject obj, jfloat x, jfloat y, jfloat z)
 {
 #ifdef DEBUG
-  kgm_log() << "Java_com_example_kSpacer_kSpacerLib_onCompass \n";
+  kgm_log() << "Java_com_kgmEngine_kSpacer_kSpacerLib_onCompass \n";
 #endif
 
   kgmGameApp::gameApplication()->android_onCompass(env, obj,  x, y, z);
 }
 
-JNIEXPORT void JNICALL Java_com_example_kSpacer_kSpacerLib_onGyroscope(JNIEnv * env, jobject obj, jfloat x, jfloat y, jfloat z)
+JNIEXPORT void JNICALL Java_com_kgmEngine_kSpacer_kSpacerLib_onGyroscope(JNIEnv * env, jobject obj, jfloat x, jfloat y, jfloat z)
 {
 #ifdef DEBUG
-  kgm_log() << "Java_com_example_kSpacer_kSpacerLib_onGyroscope \n";
+  kgm_log() << "Java_com_kgmEngine_kSpacer_kSpacerLib_onGyroscope \n";
 #endif
 
   kgmGameApp::gameApplication()->android_onGyroscope(env, obj,  x, y, z);

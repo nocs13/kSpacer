@@ -42,10 +42,10 @@ $(OUT): libkgmEngine.a
 	echo "start kSpacer building..."
 	$(CC) -g -c *.cpp $(DEFS) $(FLGS) $(DIRS) $(LIBS)
 	$(CC) -o kSpacer *.o ../kgmEngine/libkgmEngine.a $(DEFS) $(FLGS) $(DIRS) $(LIBS)
-	
+
 
 clean:	
-	$(RM) kSpacer
+	$(RM) kSpacer *.o
 
 distclean: clean
 	$(RM) kSpacer

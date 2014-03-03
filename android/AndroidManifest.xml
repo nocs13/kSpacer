@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-      package="com.example.kSpacer"
+      package="com.kgmEngine.kSpacer"
       android:versionCode="1"
       android:versionName="1.0">
     <uses-sdk
@@ -13,7 +13,7 @@
     <uses-feature android:name="android.hardware.sensor.accelerometer"  android:required="true" />
     <application android:label="@string/app_name"
                  android:icon="@drawable/kspacer_ico"
-                 android:debuggable="true">
+                 android:debuggable="false">
         <activity android:name=".kSpacer"
                   android:label="@string/app_name"
                   android:configChanges="orientation"
